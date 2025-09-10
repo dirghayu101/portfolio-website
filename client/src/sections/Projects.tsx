@@ -58,8 +58,12 @@ export const ProjectsSection = () => {
         />
 
         <div className="flex flex-col gap-20 mt-10 md:mt-20">
-          {portfolioProjects.map((project) => (
-            <Card key={project.title} className="px-8 pt-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20">
+          {portfolioProjects.map((project, projectIndex) => (
+            <Card
+              key={project.title}
+              className="px-8 pt-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20 sticky"
+              style={{ top: `calc(64px + ${projectIndex * 40}px)` }}
+            >
               {/* Grid layout only applies on the larger screen sizes. */}
               <div className="lg:grid lg:grid-cols-2 lg:gap-16">
                 <div className="lg:pb-16">
@@ -81,7 +85,6 @@ export const ProjectsSection = () => {
                         <CheckCircleIcon className="size-5 md:size-6" />
                         <span>{result.title}</span>
                       </li>
-                      
                     ))}
                   </ul>
                   <a href={project.link}>
