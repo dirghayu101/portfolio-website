@@ -1,6 +1,6 @@
 'use client';
-import { Card } from "@/components/Card";
-import { SectionHeader } from "@/components/SectionHeader";
+import { Card } from "@/components/home/Card";
+import { SectionHeader } from "@/components/home/SectionHeader";
 import StarIcon from "@/assets/icons/star.svg";
 import bookImage from "@/assets/images/book-cover.png";
 import Image from "next/image";
@@ -13,8 +13,8 @@ import GithubIcon from "@/assets/icons/github.svg";
 import { useRef } from "react";
 import mapImage from "@/assets/images/map.png";
 import smileMemoji from "@/assets/images/memoji-smile.png";
-import { CardHeader } from "@/components/CardHeader";
-import { ToolBoxItems } from "@/components/ToolboxItems";
+import { CardHeader } from "@/components/home/CardHeader";
+import { ToolBoxItems } from "@/components/home/ToolboxItems";
 import {motion} from 'framer-motion'
 
 const toolBoxItems = [

@@ -5,8 +5,8 @@ import Image from "next/image";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import grainImage from "@/assets/images/grain.jpg";
-import { SectionHeader } from "@/components/SectionHeader";
-import { Card } from "@/components/Card";
+import { SectionHeader } from "@/components/home/SectionHeader";
+import { Card } from "@/components/home/Card";
 
 const portfolioProjects = [
   {
