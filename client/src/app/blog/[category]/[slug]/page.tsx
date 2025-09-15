@@ -6,7 +6,7 @@ import Header  from "@/components/ui/Header";
 import Container from "@/components/ui/Container";
 import { formatDate } from "@/app/blog/utils";
 import { CustomMDX } from "@/components/ui/mdx";
-import { BreadcrumbWithCustomSeparator } from "@/components/ui/breadcrumb";
+import { BreadcrumbWithCustomSeparator } from "@/components/ui/Breadcrumb";
 
 // npm run build tells you about the static and dynamic pages in your application. generateStaticParams converts the rendered page into a static version.
 export async function generateStaticParams() {
@@ -15,6 +15,47 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string; category: string };
+}) {
+  let post = getBlogPosts().find((post) => post.slug === params.slug);
+  if (!post) {
+    return;
+  }
+
+  let {
+    title,
+    publishedAt: publishedTime,
+    summary: description,
+    image,
+  } = post.metadata;
+
+  let ogImage = image
+    ? image
+    : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      publishedTime,
+      url: `${baseUrl}/blog/${post?.metadata.category}/${post?.slug}}`,
+      images: [{ url: ogImage }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
 }
 
 export default function Home({
