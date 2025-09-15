@@ -18,6 +18,7 @@
     .container {
         @apply lg:max-w-5xl;
     }
+    
 }
 
 /* CSS rules added from the next-blog tutorial -- part 1 */
@@ -29,6 +30,10 @@
     --sh-keyword: #f47067;
     --sh-string: #0fa295;
   }
+  body {
+    @apply flex flex-col min-h-screen;
+  }
+
 }
 
 /* Below stylings are for the mdx converted text -- added from next blog tutorial -- part 2 */
