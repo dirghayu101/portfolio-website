@@ -16,11 +16,10 @@ const calistoga = Calistoga({
 export const metadata: Metadata = {
   title: {
     default: "My Portfolio",
-    template: `%s | ${siteConfig.name}`
-
+    template: `%s | ${siteConfig.name}`,
   },
   description: "Created with the help of Frontend Tribe",
-   keywords: [
+  keywords: [
     "Next.js",
     "React",
     "Tailwind CSS",

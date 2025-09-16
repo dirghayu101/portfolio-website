@@ -1,4 +1,4 @@
-import { CATEGORIES } from "@/app/blog/static/categories";
+import { CATEGORIES } from "@/app/static/blog/blog-components/categories";
 import Link from "next/link";
 
 export const Categories = () => {

@@ -1,4 +1,4 @@
-import { CATEGORIES } from "@/app/blog/static/categories";
+import { CATEGORIES } from "@/app/static/blog/blog-components/categories";
 import { getBlogPosts } from "./blog/utils";
 
 // NOTE: ENV here.
