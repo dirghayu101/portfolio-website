@@ -72,7 +72,7 @@ export async function createSubscriber(prevState: State, formData: FormData) {
         email: email,
       },
     });
-    revalidatePath("/blog");
+    revalidatePath("/articles");
     return { message: "Thank you for Subscribing!" };
   } catch (error) {
     if (error) {

@@ -1,10 +1,10 @@
-import { getBlogPosts } from "../blog/utils";
-import { baseUrl } from "../sitemap";
+import { getArticles } from "../../lib/utilities/markdown-utils";
+import { baseUrl } from "@/lib/utilities/general-utils";
 
 export async function GET() {
-  let allBlogs = getBlogPosts();
+  let allArticles = getArticles();
 
-  const itemsXml = allBlogs
+  const itemsXml = allArticles
     .sort((a, b) => {
       if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
         return -1;
@@ -14,7 +14,7 @@ export async function GET() {
     .map(
       (post) => `<item>
   <title>${post.metadata.title}</title>
-  <link>${baseUrl}/blog/${post.metadata.category}/${post.slug}</link>
+  <link>${baseUrl}/articles/${post.metadata.category}/${post.slug}</link>
   <description>${post.metadata.summary || ""}</description>
   <pubDate>${new Date(post.metadata.publishedAt).toUTCString()}</pubDate>
   </item>`
@@ -26,7 +26,7 @@ export async function GET() {
         <channel>
             <title>Coding Jitsu</title>
             <link>${baseUrl}</link>
-            <description>This is my Technical Blog RSS feed</description>
+            <description>This is my Technical articles RSS feed</description>
             ${itemsXml}
         </channel>
       </rss>`;

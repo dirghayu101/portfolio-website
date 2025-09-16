@@ -1,9 +1,10 @@
 import { db } from "@/db";
 
+// GET request to fetch the top 5 popular posts based on view count.
 export async function GET() {
   try {
-    const data = await db.blog.findMany({
-      take: 10,
+    const data = await db.articles.findMany({
+      take: 5,
       select: { title: true, category: true, slug: true },
       orderBy: [{ view_count: "desc" }],
     });
@@ -15,23 +16,24 @@ export async function GET() {
   }
 }
 
+// POST request to update the view count of an article.
 export async function POST(request: Request) {
   const { slug, title, category } = await request.json();
 
   try {
-    const existingPost = await db.blog.findUnique({
+    const existingPost = await db.articles.findUnique({
       where: { slug: slug },
     });
 
     if (existingPost) {
-      await db.blog.update({
+      await db.articles.update({
         where: { slug: slug },
         data: {
           view_count: { increment: 1 },
         },
       });
     } else {
-      await db.blog.create({
+      await db.articles.create({
         data: {
           slug: slug,
           title: title,

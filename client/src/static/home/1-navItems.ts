@@ -10,8 +10,8 @@ export const NAVBAR_ITEMS: {title: string, href: string, sequenceNumber: number,
         sequenceNumber: 2
     },
     {
-        title: "Blog",
-        href: "/blog",
+        title: "Articles",
+        href: "/articles",
         sequenceNumber: 4
     },
     {

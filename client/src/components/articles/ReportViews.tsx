@@ -4,7 +4,7 @@ Makes a post request to the endpoint with slug, title and category in the body.
 
 "use client";
 
-import { fetchUrl } from "@/lib/utils";
+import { fetchUrl } from "@/lib/utilities/general-utils";
 import { useEffect } from "react";
 
 export const ReportViews = ({

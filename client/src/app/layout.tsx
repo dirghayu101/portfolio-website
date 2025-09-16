@@ -4,7 +4,7 @@ import "./globals.css";
 import { twMerge } from "tailwind-merge";
 import { Header } from "@/components/home/sections/Header";
 import { Footer } from "@/components/home/sections/Footer";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/static/config/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const calistoga = Calistoga({
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     "Radix UI",
     "Shadcnui",
     "Javascript",
-    "Blog",
+    "Articles",
   ],
   authors: [
     {

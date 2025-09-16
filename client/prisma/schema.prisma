@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Blog {
+model Articles {
   id          Int       @id @default(autoincrement())
   slug        String    @unique
   title       String

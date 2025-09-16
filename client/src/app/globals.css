@@ -21,7 +21,7 @@
     
 }
 
-/* CSS rules added from the next-blog tutorial -- part 1 */
+/* CSS rules added from the next-articles tutorial -- part 1 */
 @layer base {
   :root {
     /* code highlight */
@@ -36,7 +36,7 @@
 
 }
 
-/* Below stylings are for the mdx converted text -- added from next blog tutorial -- part 2 */
+/* Below stylings are for the mdx converted text -- added from next articles tutorial -- part 2 */
 .prose .anchor {
   @apply absolute invisible no-underline;
 

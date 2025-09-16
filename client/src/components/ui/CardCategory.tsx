@@ -1,4 +1,4 @@
-import { formatDate } from "@/app/blog/utils";
+import { formatDate } from "@/lib/utilities/markdown-utils";
 import {
   Card,
   CardContent,

@@ -26,7 +26,7 @@ export function BreadcrumbWithCustomSeparator({
           <Slash />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/blog/${category}`}>{category}</BreadcrumbLink>
+          <BreadcrumbLink href={`/articles/${category}`}>{category}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
           <Slash />

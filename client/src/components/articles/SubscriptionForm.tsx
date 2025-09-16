@@ -1,7 +1,7 @@
 "use client"
 import { useFormState } from "react-dom";
 import { Input } from "@/components/ui/input";
-import { createSubscriber } from "@/lib/actions";
+import { createSubscriber } from "@/lib/server-actions/actions";
 import SubmitButton from "../ui/SubmitButton";
 
 export const SubscriptionForm = () => {

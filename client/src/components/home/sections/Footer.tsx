@@ -1,5 +1,5 @@
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
-import { FOOTER_ITEMS } from "@/app/static/home/2-footerItems";
+import { FOOTER_ITEMS } from "@/static/home/2-footerItems";
 import Link from "next/link";
 
 const footerLinks = [
@@ -8,8 +8,8 @@ const footerLinks = [
     href: "#",
   },
   {
-    title: "My Blog",
-    href: "/blog",
+    title: "My articles",
+    href: "/articles",
   },
   {
     title: "LinkedIn",

@@ -1,4 +1,4 @@
-import { NAVBAR_ITEMS } from "@/app/static/home/1-navItems";
+import { NAVBAR_ITEMS } from "@/static/home/1-navItems";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 

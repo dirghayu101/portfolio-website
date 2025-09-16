@@ -2,7 +2,7 @@
 Library import.
 */
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utilities/general-utils"
 
 function Skeleton({
   className,

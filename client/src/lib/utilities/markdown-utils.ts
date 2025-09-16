@@ -28,18 +28,18 @@ function getMDXData(dir: string) {
     });
 }
 
-export function getBlogPosts() {
-    return getMDXData(path.join(process.cwd(), "src", "app", "blog", "contents"));
+export function getArticles() {
+    return getMDXData(path.join(process.cwd(), "src", "static", "articles", "articles-writeups"));
 }
 
 export function getTermsOfServices() {
   return getMDXData(
-    path.join(process.cwd(), "src", "app", "terms-of-services")
+    path.join(process.cwd(), "src", "static", "terms-of-services")
   );
 }
 
 export function getPrivacyPolicy() {
-  return getMDXData(path.join(process.cwd(), "src", "app", "privacy-policy"));
+  return getMDXData(path.join(process.cwd(), "src", "static", "privacy-policy"));
 }
 
 

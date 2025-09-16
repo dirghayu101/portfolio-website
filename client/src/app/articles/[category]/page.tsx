@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getBlogPosts } from "../utils";
+import { getArticles } from "../../../lib/utilities/markdown-utils";
 import Header from "@/components/ui/Header";
 import Container from "@/components/ui/Container";
 import CardCategory from "@/components/ui/CardCategory";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 // npm run build tells you about the static and dynamic pages in your application. generateStaticParams converts the rendered page into a static version.
 // export async function generateStaticParams() {
-//   let posts = getBlogPosts();
+//   let posts = getArticles();
 
 //   return posts.map((post) => ({
 //     category: post.metadata.category,
@@ -25,7 +25,7 @@ export function generateMetadata({ params }: { params: { category: string } }) {
 }
 
 export default function Home({ params }: { params: { category: string } }) {
-  let posts = getBlogPosts().filter(
+  let posts = getArticles().filter(
     (post) => post.metadata.category === params.category
   );
   if (!posts.length) {
@@ -54,7 +54,7 @@ export default function Home({ params }: { params: { category: string } }) {
             }) 
             .map((post) => (
               <Link
-                href={`/blog/${post.metadata.category}/${post.slug}`}
+                href={`/articles/${post.metadata.category}/${post.slug}`}
                 key={post.slug}
               >
                 <CardCategory

@@ -5,11 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// NOTE: ENV Here.
+export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
 export const fetchUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api"
-    : "https://next-blog-cj.vercel.app/api";
+    : process.env.NEXT_PUBLIC_API_URL!;
 
 type ResponseData = {
   category: string;

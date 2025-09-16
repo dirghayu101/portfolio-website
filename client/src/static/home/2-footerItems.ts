@@ -5,9 +5,9 @@ export const FOOTER_ITEMS = [
     href: "https://github.com/dirghayu101",
   },
   {
-    title: "My Blog",
+    title: "My articles",
     type: "internal",
-    href: "/blog",
+    href: "/articles",
   },
   {
     title: "LinkedIn",
