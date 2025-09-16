@@ -1,5 +1,5 @@
 import Container from "@/components/ui/Container";
-import { getPrivacyPolicy } from "../../lib/utilities/markdown-utils";
+import { getPrivacyPolicy } from "@/lib/utilities/markdown-utils";
 import { CustomMDX } from "@/components/ui/mdx";
 import { Metadata } from "next";
 

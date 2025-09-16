@@ -9,9 +9,6 @@
     .hero-ring{
         @apply  absolute inset-0 border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow-[0_0_80px_inset] shadow-emerald-300/5
     }
-    body{
-        @apply flex flex-col min-h-screen;
-    }
 }
 
 @layer utilities {
@@ -34,6 +31,13 @@
     @apply flex flex-col min-h-screen;
   }
 
+}
+
+/* My own CSS rules */
+@layer base {
+   .text-legibility {
+      text-rendering: optimizeLegibility;
+    }
 }
 
 /* Below stylings are for the mdx converted text -- added from next articles tutorial -- part 2 */

@@ -1,4 +1,4 @@
-import { getArticles } from "../../lib/utilities/markdown-utils";
+import { getArticles } from "@/lib/utilities/markdown-utils";
 import { baseUrl } from "@/lib/utilities/general-utils";
 
 export async function GET() {

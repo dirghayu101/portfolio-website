@@ -1,14 +1,13 @@
-import { formatDate, getArticles } from "@/lib/utilities/markdown-utils";
+import { formatDate } from "@/lib/utilities/markdown-utils";
 import Link from "next/link";
 
-export const LatestPosts = () => {
-  let latestPosts = getArticles();
+export const LatestPosts = ({allPosts}:{allPosts: any[]}) => {
   return (
     <div className="container">
       <h1 className="inline-block font-heading text-4xl tracking-tight lg:text-5xl">
         Recently Published
       </h1>
-      {latestPosts
+      {allPosts
         .sort((a, b) => {
           if (
             new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
@@ -17,6 +16,7 @@ export const LatestPosts = () => {
           }
           return 1;
         })
+        .slice(0, 3)
         .map((post) => (
           <article key={post.slug} className="text-wrap max-w-md my-10">
             <Link href={`/articles/${post.metadata.category}/${post.slug}`}>

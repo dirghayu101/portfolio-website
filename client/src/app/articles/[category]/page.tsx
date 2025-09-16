@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getArticles } from "../../../lib/utilities/markdown-utils";
+import { getArticles } from "@/lib/utilities/markdown-utils";
 import Header from "@/components/ui/Header";
 import Container from "@/components/ui/Container";
 import CardCategory from "@/components/ui/CardCategory";

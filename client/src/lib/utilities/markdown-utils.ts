@@ -28,6 +28,25 @@ function getMDXData(dir: string) {
     });
 }
 
+// 4. Function to get just the metadata of the mdx files.
+export function getMDXMetadata(dir: string) {
+    let mdxFiles = getMDXFiles(dir);
+
+    return mdxFiles.map((file) => {
+        let { data: metadata } = readMDXFile(path.join(dir, file));
+        let slug = path.basename(file, path.extname(file));
+
+        return {
+            metadata,
+            slug,
+        };
+    });
+}
+
+export function getArticlesMetadata() {
+    return getMDXMetadata(path.join(process.cwd(), "src", "static", "articles", "articles-writeups"));
+}
+
 export function getArticles() {
     return getMDXData(path.join(process.cwd(), "src", "static", "articles", "articles-writeups"));
 }
