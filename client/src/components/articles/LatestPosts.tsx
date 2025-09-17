@@ -1,35 +1,29 @@
 import { formatDate } from "@/lib/utilities/markdown-utils";
 import Link from "next/link";
+import { ArticleSectionHeader } from "./ArticleSectionHeader";
+import { ArticleSectionContainer } from "./ArticleSectionContainer";
+import { ArticleListDescriptive } from "./ArticleListDescriptive";
 
-export const LatestPosts = ({allPosts}:{allPosts: any[]}) => {
+export const LatestPosts = ({ allPosts }: { allPosts: any[] }) => {
+  const formattedPosts = allPosts
+    .sort((a, b) => {
+      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+        return -1;
+      }
+      return 1;
+    })
+    .slice(0, 3)
+    .map((post) => ({
+      title: post.metadata.title,
+      slug: post.slug,
+      category: post.metadata.category,
+      summary: post.metadata.summary,
+      date: formatDate(post.metadata.publishedAt),
+    }));
   return (
-    <div className="container">
-      <h1 className="inline-block font-heading text-4xl tracking-tight lg:text-5xl">
-        Recently Published
-      </h1>
-      {allPosts
-        .sort((a, b) => {
-          if (
-            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
-          ) {
-            return -1;
-          }
-          return 1;
-        })
-        .slice(0, 3)
-        .map((post) => (
-          <article key={post.slug} className="text-wrap max-w-md my-10">
-            <Link href={`/articles/${post.metadata.category}/${post.slug}`}>
-              <h3 className="font-bold py-2 leading-5 hover:text-blue-400">
-                {post.metadata.title}
-              </h3>
-            </Link>
-            <p className="leading-8 my-5">{post.metadata.summary}</p>
-            <p className="text-sm text-muted-foreground">
-              {formatDate(post.metadata.publishedAt)}
-            </p>
-          </article>
-        ))}
-    </div>
+    <ArticleSectionContainer>
+      <ArticleSectionHeader heading="Latest Posts" />
+      <ArticleListDescriptive posts={formattedPosts} />
+    </ArticleSectionContainer>
   );
-}
+};

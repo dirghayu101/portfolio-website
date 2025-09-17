@@ -1,10 +1,10 @@
 "use client";
 import { useFormStatus } from "react-dom";
 
-function SubmitButton() {
+function SubmitButton({className}: {className?: string}) {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" aria-disabled={pending} disabled={pending}>
+    <button type="submit" aria-disabled={pending} disabled={pending} className={className}>
       {pending ? "Loading..." : "Subscribe"}
     </button>
   );

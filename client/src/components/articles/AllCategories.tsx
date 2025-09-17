@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ArticleSectionHeader } from "./ArticleSectionHeader";
+import { ArticleSectionContainer } from "./ArticleSectionContainer";
 
 export const AllCategories = ({ allPosts }: { allPosts: any[] }) => {
   let grouped = new Map<
@@ -29,9 +30,9 @@ export const AllCategories = ({ allPosts }: { allPosts: any[] }) => {
     [...grouped.entries()].sort((a, b) => a[1].length - b[1].length)
   );
   return (
-    <div className="container pb-20">
+    <ArticleSectionContainer>
       <ArticleSectionHeader heading="Articles by Topics" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+      <div className="grid grid-cols-1 md:grid-cols-2">
         {Array.from(grouped.entries()).map(([category, posts]) => {
           return (
             <div key={category} className="p-4 h-full">
@@ -78,6 +79,6 @@ export const AllCategories = ({ allPosts }: { allPosts: any[] }) => {
           );
         })}
       </div>
-    </div>
+    </ArticleSectionContainer>
   );
 };

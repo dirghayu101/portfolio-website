@@ -1,6 +1,5 @@
 "use server";
 import { db } from "@/db";
-import { Prisma } from "@/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { promises as dns } from "dns";
@@ -36,7 +35,7 @@ export async function validateEmailAddress(emailAddress: string) {
 const FormSchema = z.object({
   id: z.number(),
   email: z
-    .email({ message: "A valid Email is required." })
+    .email({ message: "A valid email is required." })
     .refine(validateEmailAddress, {
       message: "Email does not meet custom validation rules",
     }),
@@ -51,7 +50,6 @@ type State = {
   };
   message?: string | null;
 };
-
 export async function createSubscriber(prevState: State, formData: FormData) {
   const validatedField = await CreateSubscriber.safeParseAsync({
     email: formData.get("email"),
@@ -72,19 +70,13 @@ export async function createSubscriber(prevState: State, formData: FormData) {
         email: email,
       },
     });
-    revalidatePath("/articles");
+    revalidatePath("/");
     return { message: "Thank you for Subscribing!" };
   } catch (error) {
-    if (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === "P2002") {
-          return { 
-            message: "Email already Exist in the DB",
-          };
-        }
-      }
-    }
 
-    return { message: "Database Error: Failed to create Subscriber." };
+    return { errors: {email: ["Failed to subscribe the email entered."]}, message: null };
   }
 }
+
+
+
