@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Calistoga } from "next/font/google";
+import { Inter, Calistoga, Montserrat } from "next/font/google";
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
 import { Header } from "@/components/home/sections/Header";
@@ -12,6 +12,7 @@ const calistoga = Calistoga({
   variable: "--font-serif",
   weight: ["400"],
 });
+const montserrat = Montserrat({subsets: ["latin"], variable: "--font-special"})
 
 export const metadata: Metadata = {
   title: {
@@ -69,7 +70,8 @@ export default function RootLayout({
         className={twMerge(
           inter.variable,
           calistoga.variable,
-          "bg-gray-900 text-white antialiased font-sans"
+          montserrat.variable,
+          "bg-gray-900 text-white antialiased font-special"
         )}
       >
         <Header />
