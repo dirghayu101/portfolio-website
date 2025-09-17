@@ -8,7 +8,7 @@ import { ArticleSectionHeader } from "./ArticleSectionHeader";
 import { ArticleSectionContainer } from "./ArticleSectionContainer";
 import { ArticleListDescriptive } from "./ArticleListDescriptive";
 
-export default function PopularPosts({ allPosts }: { allPosts: any[] }) {
+export default function PopularPosts({ allPosts, header }: { allPosts: any[], header?: string }) {
   const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
 
   if (error) return <></>;
@@ -31,7 +31,7 @@ export default function PopularPosts({ allPosts }: { allPosts: any[] }) {
 
   return (
     <ArticleSectionContainer>
-      <ArticleSectionHeader heading="Popular Posts" />
+      <ArticleSectionHeader heading={header || "Popular Posts"} />
       <ArticleListDescriptive posts={popularPosts} />
     </ArticleSectionContainer>
   );

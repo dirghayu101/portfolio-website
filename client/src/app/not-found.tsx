@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -7,7 +8,10 @@ export default function NotFound() {
         404 - Page Not Found
       </h1>
       <p className="mb-4">This page you are looking for does not exist.</p>
-      <Link href={"/"}>Go Home.</Link>
+      <Link href={"/"} className="flex items-center text-blue-500">
+        Go Home.
+        <ArrowUpRight className="ml-2" />
+      </Link>
     </section>
   );
 }
