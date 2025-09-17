@@ -5,17 +5,17 @@ import { createSubscriber } from "@/lib/server-actions/actions";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { ArticleSectionContainer } from "./ArticleSectionContainer";
 import { ArticleSectionHeader } from "./ArticleSectionHeader";
-import { SUBSCRIPTION_PITCH } from "@/static/articles/articles-components/2-subscription-pitch";
+import { DEFAULT_SUBSCRIPTION_PITCH } from "@/static/articles/articles-components/2-subscription-pitch";
 
-export const SubscriptionForm = () => {
+export const SubscriptionForm = ({heading, description} : {heading?: string; description?: string}) => {
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(createSubscriber, initialState);
   return (
     <ArticleSectionContainer>
-      <ArticleSectionHeader heading={SUBSCRIPTION_PITCH.heading} />
+      <ArticleSectionHeader heading={heading || DEFAULT_SUBSCRIPTION_PITCH.heading} />
     <div className="p-8 text-center box-border rounded-xl shadow-sm max-w-md mx-auto">
       <h4 className="mb-6 text-lg font-semibold">
-        {SUBSCRIPTION_PITCH.description}
+        {description || DEFAULT_SUBSCRIPTION_PITCH.description}
       </h4>
 
       <form className="flex flex-col gap-4" action={dispatch}>

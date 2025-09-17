@@ -2,11 +2,12 @@ import { getArticles } from "@/lib/utilities/markdown-utils";
 import { notFound } from "next/navigation";
 import { baseUrl } from "@/lib/utilities/general-utils";
 import { ReportViews } from "@/components/articles/ReportViews";
-import Header  from "@/components/ui/Header";
-import Container from "@/components/ui/Container";
 import { formatDate } from "@/lib/utilities/markdown-utils";
 import { CustomMDX } from "@/components/ui/mdx";
 import { BreadcrumbWithCustomSeparator } from "@/components/ui/Breadcrumb";
+import { ArticleSectionContainer } from "@/components/articles/ArticleSectionContainer";
+import { SubscriptionForm } from "@/components/articles/SubscriptionForm";
+import { BLOG_SUBSCRIPTION_PITCH } from "@/static/articles/articles-components/2-subscription-pitch";
 
 // npm run build tells you about the static and dynamic pages in your application. generateStaticParams converts the rendered page into a static version.
 export async function generateStaticParams() {
@@ -63,7 +64,8 @@ export default function Home({
 }: {
   params: { category: string; slug: string };
 }) {
-  let post = getArticles().find((post) => post.slug === params.slug);
+  const allPosts = getArticles();
+  let post = allPosts.find(post => post.slug === params.slug);
 
   if (!post) {
     notFound();
@@ -71,6 +73,7 @@ export default function Home({
 
   return (
     <>
+      {/* SEO stuff. */}
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -93,32 +96,40 @@ export default function Home({
           }),
         }}
       />
+      {/* Count views. */}
       <ReportViews
         category={post.metadata.category}
         title={post.metadata.title}
         slug={post.slug}
       />
-      <Header>
-        <Container>
+
+
+        <ArticleSectionContainer className="items-start">
           <BreadcrumbWithCustomSeparator
             category={post.metadata.category}
             slug={post.slug}
           />
-          <h1 className="title font-semibold text-2xl tracking-tighter mt-4">
-            {post.metadata.title}
-          </h1>
-          <div className="flex justify-between items-center mt-2 mb-4 text-sm">
-            <p className="text-sm text-neutral-400 mt-2">
-              {formatDate(post.metadata.publishedAt)}
-            </p>
+         <h1 className="font-serif tracking-wider md:text-4xl sm:text-2xl py-6 sm:py-4 ">{post.metadata.title}</h1>
+          <div className="flex flex-col justify-between items-start mb-4 text-sm">
+            <div className="text-sm mt-2 font-light flex space-x-2">
+              <span className="font-semibold">Published on:</span> 
+              <span className="tracking-wide">{formatDate(post.metadata.publishedAt)}</span>
+            </div>
+            <div className="text-sm mt-2 font-light flex space-x-2">
+              <span className="font-semibold">Author:</span> <span className="tracking-wide">Dirghayu Joshi</span>
+            </div>
           </div>
-        </Container>
-      </Header>
-      <Container>
-        <article className="prose">
+        </ArticleSectionContainer>
+
+      <div className="container md:py-10 sm:py-5 ">
+        <article className="prose  ">
           <CustomMDX source={post.content} />
         </article>
-      </Container>
+        <div className="text-center text-white/70 mt-14 text-lg font-medium">
+          You have reached the end of the article 😊, thanks for reading and have a good day!
+        </div>
+      </div>
+      <SubscriptionForm heading={BLOG_SUBSCRIPTION_PITCH.heading} description={BLOG_SUBSCRIPTION_PITCH.description} />
     </>
   );
 }

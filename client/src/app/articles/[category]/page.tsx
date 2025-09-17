@@ -3,8 +3,8 @@ import { getArticlesMetadata } from "@/lib/utilities/markdown-utils";
 import { ArticlePageHeader } from "@/components/articles/ArticlePageHeader";
 import { ArticleListDescriptive } from "@/components/articles/ArticleListDescriptive";
 import { ArticleSectionContainer } from "@/components/articles/ArticleSectionContainer";
-import PopularPosts from "@/components/articles/PopularPosts";
 import { SubscriptionForm } from "@/components/articles/SubscriptionForm";
+import { PopularPosts } from "@/components/articles/PopularPosts";
 
 // npm run build tells you about the static and dynamic pages in your application. generateStaticParams converts the rendered page into a static version.
 export async function generateStaticParams() {
@@ -30,8 +30,8 @@ export default function Home({ params }: { params: { category: string } }) {
     .filter((post) => post.metadata.category === params.category)
     .sort(
       (a, b) =>
-        new Date(b.metadata.date).getTime() -
-        new Date(a.metadata.date).getTime()
+        new Date(b.metadata.publishedAt).getTime() -
+        new Date(a.metadata.publishedAt).getTime()
     )
     .map((post) => {
       return {
@@ -39,10 +39,9 @@ export default function Home({ params }: { params: { category: string } }) {
         summary: post.metadata.summary,
         slug: post.slug,
         category: post.metadata.category,
-        date: post.metadata.date,
+        date: post.metadata.publishedAt,
       };
     });
-  console.log(posts);
   if (!posts.length) {
     notFound();
   }

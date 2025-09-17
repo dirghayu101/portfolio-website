@@ -64,7 +64,7 @@ export const AllCategories = ({ allPosts }: { allPosts: any[] }) => {
                 <div className="mt-4">
                   <Link
                     href={`/articles/${category}`}
-                    className="group inline-flex text-sm items-center gap-1.5 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+                    className="group inline-flex text-sm items-center gap-1.5 shadow transition-transform duration-300 ease-in-out hover:scale-102"
                   >
                     <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white transition-colors duration-300 group-hover:bg-emerald-400">
                       <ArrowRight className=" transition-transform duration-300 size-4 text-black/50 group-hover:text-white" />

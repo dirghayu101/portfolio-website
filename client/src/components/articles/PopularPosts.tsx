@@ -1,6 +1,5 @@
 "use client";
 
-// import { popularPosts } from "@/lib/placeholder-data";
 import { fetcher, fetchUrl } from "@/lib/utilities/general-utils";
 import useSWR from "swr";
 import { PopularPostsSkeleton } from "@/components/ui/PopularPostsSkeleton";
@@ -8,7 +7,7 @@ import { ArticleSectionHeader } from "./ArticleSectionHeader";
 import { ArticleSectionContainer } from "./ArticleSectionContainer";
 import { ArticleListDescriptive } from "./ArticleListDescriptive";
 
-export default function PopularPosts({ allPosts, header }: { allPosts: any[], header?: string }) {
+export const PopularPosts = ({ allPosts, header }: { allPosts: any[], header?: string }) => {
   const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
 
   if (error) return <></>;

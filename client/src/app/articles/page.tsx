@@ -1,7 +1,7 @@
 import { ArticlePageHeader } from "@/components/articles/ArticlePageHeader";
 import { AllCategories } from "@/components/articles/AllCategories";
 import { LatestPosts } from "@/components/articles/LatestPosts";
-import PopularPosts from "@/components/articles/PopularPosts";
+import { PopularPosts } from "@/components/articles/PopularPosts";
 import { SubscriptionForm } from "@/components/articles/SubscriptionForm";
 import { getArticlesMetadata } from "@/lib/utilities/markdown-utils";
 import { ARTICLE_SECTION_HEADER } from "@/static/articles/articles-components/1-article-section-header";
