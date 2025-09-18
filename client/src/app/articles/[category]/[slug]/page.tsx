@@ -65,7 +65,7 @@ export default function Home({
   params: { category: string; slug: string };
 }) {
   const allPosts = getArticles();
-  let post = allPosts.find(post => post.slug === params.slug);
+  let post = allPosts.find((post) => post.slug === params.slug);
 
   if (!post) {
     notFound();
@@ -102,34 +102,41 @@ export default function Home({
         title={post.metadata.title}
         slug={post.slug}
       />
-
-
-        <ArticleSectionContainer className="items-start">
+      <ArticleSectionContainer className="pt-12">
+        <div className="max-w-3xl mx-auto w-full px-4">
           <BreadcrumbWithCustomSeparator
             category={post.metadata.category}
             slug={post.slug}
           />
-         <h1 className="font-serif tracking-wider md:text-4xl sm:text-2xl py-6 sm:py-4 ">{post.metadata.title}</h1>
+
+          <h1 className="font-serif tracking-wider text-4xl md:text-4xl sm:text-4xl py-6 sm:py-4 ">
+            {post.metadata.title}
+          </h1>
           <div className="flex flex-col justify-between items-start mb-4 text-sm">
             <div className="text-sm mt-2 font-light flex space-x-2">
-              <span className="font-semibold">Published on:</span> 
-              <span className="tracking-wide">{formatDate(post.metadata.publishedAt)}</span>
+              <span className="font-semibold">Published on:</span>
+              <span className="tracking-wide">
+                {formatDate(post.metadata.publishedAt)}
+              </span>
             </div>
             <div className="text-sm mt-2 font-light flex space-x-2">
-              <span className="font-semibold">Author:</span> <span className="tracking-wide">Dirghayu Joshi</span>
+              <span className="font-semibold">Author:</span>{" "}
+              <span className="tracking-wide">Dirghayu Joshi</span>
             </div>
           </div>
-        </ArticleSectionContainer>
-
-      <div className="container md:py-10 sm:py-5 ">
-        <article className="prose  ">
+        </div>
+        <article className=" max-w-3xl leading-relaxed mx-auto w-full px-4 pt-4">
           <CustomMDX source={post.content} />
         </article>
         <div className="text-center text-white/70 mt-14 text-lg font-medium">
-          You have reached the end of the article 😊, thanks for reading and have a good day!
+          You have reached the end of the article 😊, thanks for reading and
+          have a good day!
         </div>
-      </div>
-      <SubscriptionForm heading={BLOG_SUBSCRIPTION_PITCH.heading} description={BLOG_SUBSCRIPTION_PITCH.description} />
+        <SubscriptionForm
+          heading={BLOG_SUBSCRIPTION_PITCH.heading}
+          description={BLOG_SUBSCRIPTION_PITCH.description}
+        />
+      </ArticleSectionContainer>
     </>
   );
 }
