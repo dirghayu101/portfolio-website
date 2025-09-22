@@ -13,6 +13,7 @@ const config: Config = {
       sm: "375px",
       md: "768px",
       lg: "1200px",
+      nav: "768px",
     },
     container: {
       center: true,

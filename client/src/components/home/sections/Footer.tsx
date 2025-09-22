@@ -2,25 +2,6 @@ import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import { FOOTER_ITEMS } from "@/static/home/2-footerItems";
 import Link from "next/link";
 
-const footerLinks = [
-  {
-    title: "Github",
-    href: "#",
-  },
-  {
-    title: "My articles",
-    href: "/articles",
-  },
-  {
-    title: "LinkedIn",
-    href: "#",
-  },
-  {
-    title: "YouTube",
-    href: "#",
-  },
-];
-
 export const Footer = () => {
   return (
     <footer className="relative z-10 overflow-x-clip">
