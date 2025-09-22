@@ -19,7 +19,7 @@ export const ReportViews = ({
   useEffect(() => {
     const postData = async () => {
       try {
-        await fetch(fetchUrl, {
+        await fetch(`${fetchUrl}/blog`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

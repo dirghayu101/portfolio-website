@@ -8,7 +8,8 @@ import { ArticleSectionContainer } from "./ArticleSectionContainer";
 import { ArticleListDescriptive } from "./ArticleListDescriptive";
 
 export const PopularPosts = ({ allPosts, header }: { allPosts: any[], header?: string }) => {
-  const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
+  const blogUrl = `${fetchUrl}/blog`;
+  const { data, error, isLoading } = useSWR(blogUrl, fetcher);
 
   if (error) return <></>;
   if (isLoading) return <PopularPostsSkeleton />;

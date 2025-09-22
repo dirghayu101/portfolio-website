@@ -48,3 +48,4 @@ export async function POST(request: Request) {
 
   return new Response("Successfully posted to DB", { status: 200 });
 }
+
