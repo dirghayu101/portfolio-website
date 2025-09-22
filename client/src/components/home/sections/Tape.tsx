@@ -1,18 +1,6 @@
 import StarIcon from "@/assets/icons/star.svg";
+import { PORTFOLIO_PROJECTS } from "@/static/home/5-portfolioProjects";
 import { Fragment } from "react";
-const words = [
-  "Performant",
-  "Accessible",
-  "Secure",
-  "Interactive",
-  "Scalable",
-  "User Friendly",
-  "Maintainable",
-  "Responsive",
-  "Search Optimized",
-  "Usable",
-  "Reliable",
-];
 
 export const TapeSection = () => {
   return (
@@ -24,7 +12,7 @@ export const TapeSection = () => {
           >
             {[...new Array(2)].fill(0).map((_, index) => (
               <Fragment key={index}>
-                {words.map((word) => (
+                {PORTFOLIO_PROJECTS.keywords.map((word) => (
                   <div key={word} className="inline-flex gap-4 items-center">
                     <span className="text-gray-900 uppercase font-extrabold text-sm">
                       {word}

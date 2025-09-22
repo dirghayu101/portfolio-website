@@ -1,10 +1,11 @@
-import memojiImage from "@/assets/images/memoji-computer.png";
 import Image from "next/image";
 import ArrowDown from "@/assets/icons/arrow-down.svg";
 import grainImage from "@/assets/images/grain.jpg";
 import StarIcon from "@/assets/icons/star.svg";
 import SparkleIcon from "@/assets/icons/sparkle.svg";
 import { HeroOrbit } from "@/components/home/HeroOrbit";
+import { HERO_CONTENT } from "@/static/home/4-hero";
+import { LINKS } from "@/static/home/0-externalLinks";
 
 export const HeroSection = () => {
   return (
@@ -58,7 +59,7 @@ export const HeroSection = () => {
       <div className="container">
         <div className="flex flex-col items-center">
           <Image
-            src={memojiImage}
+            src={HERO_CONTENT.heroMemojiIcon}
             className="size-[100px]"
             alt="Person peeking from behind laptop"
           />
@@ -67,18 +68,16 @@ export const HeroSection = () => {
               <div className="bg-green-500 absolute inset-0 rounded-full animate-ping-large"></div>
             </div>
             <div className="text-sm font-medium">
-              Available for new projects
+              {HERO_CONTENT.status}
             </div>
           </div>
         </div>
         <div className="max-w-lg mx-auto">
           <h1 className="font-serif text-3xl md:text-5xl text-center mt-8 tracking-wide">
-            Building Exceptional User Experiences
+            {HERO_CONTENT.mainHeading}
           </h1>
           <p className="mt-4 text-center text-white/60 md:text-lg">
-            I specialize in transforming designs into functional,
-            high-performing web applications. Let&#39;s discuss your next
-            project.
+           {HERO_CONTENT.description}
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4">
@@ -86,10 +85,12 @@ export const HeroSection = () => {
             <span className="font-semibold">Explore My Work</span>
             <ArrowDown className="size-4" />
           </button>
-          <button className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl">
+
+          <a href={LINKS.LinkedIn} className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl hover:cursor-pointer">
             <span>👋</span>
             <span className="font-semibold">Let&#39;s Connect</span>
-          </button>
+          </a>
+
         </div>
       </div>
     </div>

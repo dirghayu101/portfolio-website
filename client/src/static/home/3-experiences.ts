@@ -5,7 +5,7 @@ export type Experience = {
   contents: string[];
 };
 
-export const experiences: Experience[] = [
+export const EXPERIENCES: Experience[] = [
   {
     title: "Software Developer",
     job: "Security & Defense Projects",

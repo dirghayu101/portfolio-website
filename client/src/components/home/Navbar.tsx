@@ -50,7 +50,7 @@ export const Navbar = () => {
         </Link>
 
         <Link
-          href="#"
+          href=""
           onClick={() => setContactOpen(true)}
           className="md:flex hidden nav-item"
         >
@@ -110,7 +110,7 @@ export const Navbar = () => {
               }}
             >
               <button
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/20 transition"
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-neutral-100 transition"
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
               >
@@ -119,10 +119,10 @@ export const Navbar = () => {
                   height="28"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-white"
+                  className="text-neutral-200  hover:text-black"
                 >
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />

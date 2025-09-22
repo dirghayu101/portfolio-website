@@ -1,8 +1,10 @@
+import { LINKS } from "./0-externalLinks"
+
 export const FOOTER_ITEMS = [
-    {
+  {
     title: "Github",
     type: "external",
-    href: "https://github.com/dirghayu101",
+    href: LINKS.Github,
   },
   {
     title: "My articles",
@@ -12,11 +14,17 @@ export const FOOTER_ITEMS = [
   {
     title: "LinkedIn",
     type: "external",
-    href: "https://www.linkedin.com/in/dirghayu-joshi-b46648204/",
+    href: LINKS.LinkedIn,
   },
   {
     title: "YouTube",
     type: "external",
-    href: "https://www.youtube.com/",
+    href: LINKS.YouTube,
   },
 ]
+
+export const CONTACT_CTA = {
+  heading: "Let's create something together",
+  description: `Ready to bring your next project to life? Let's connect and
+                discuss how I can help you achieve your goals.`
+}

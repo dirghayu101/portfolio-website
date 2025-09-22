@@ -1,5 +1,5 @@
 "use client";
-import { Experience } from "@/static/home/3-experiences";
+import type { Experience  } from "@/static/home/3-experiences";
 import { useScroll, useTransform, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
