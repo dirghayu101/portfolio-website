@@ -9,11 +9,13 @@ import {motion} from 'framer-motion'
 import { ABOUT } from "@/static/home/7-about";
 import { Modal } from "@/components/home/Modal";
 import { BookDetails } from "@/components/home/BookDetails";
+import { ToolsDetails } from "@/components/home/ToolsDetails";
 
 
 export const AboutSection = () => {
   const constraintRef = useRef(null)
   const [openBookModal, setOpenBookModal] = useState(false);
+  const [openToolsModal, setOpenToolsModal] = useState(false);
   
   return (
     <div className="py-20 lg:py-28">
@@ -37,10 +39,9 @@ export const AboutSection = () => {
           </Modal>
 
           {/* Toolbox Section */}
-          <Card className="h-[320px] md:col-span-3 lg:col-span-2 hover:cursor-pointer">
+          <Card className="h-[320px] md:col-span-3 lg:col-span-2 hover:cursor-pointer"  onClick={() => setOpenToolsModal(true)}>
             <CardHeader
               {...ABOUT.toolboxSection}
-              className=""
             />
             <ToolBoxItems items={ABOUT.toolboxItems} className="" itemsWrapperClassName="animate-move-left [animation-duration:25s]"/>
             <ToolBoxItems
@@ -49,6 +50,9 @@ export const AboutSection = () => {
               itemsWrapperClassName="-translate-x-1/2 animate-move-right [animation-duration:12s]"
             />
           </Card>
+          <Modal isOpen={openToolsModal} onClose={() => setOpenToolsModal(false)}>
+           <ToolsDetails/>
+          </Modal>
           </div>
           <div className="grid gap-8 grid-cols-1 md:grid-cols-5 lg:grid-cols-3">
           <Card className="h-[320px] p-0 flex flex-col md:col-span-3 lg:col-span-2">
