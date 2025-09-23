@@ -1,7 +1,7 @@
-import Container from "@/components/ui/Container";
 import { getTermsOfServices } from "@/lib/utilities/markdown-utils";
 import { CustomMDX } from "@/components/ui/mdx";
 import { Metadata } from "next";
+import { ArticleSectionContainer } from "@/components/articles/ArticleSectionContainer";
 
 export const metadata: Metadata = {
   title: "Terms Of Services",
@@ -14,10 +14,10 @@ export default function Page() {
   );
 
   return (
-    <Container>
-      <article className="prose">
+     <ArticleSectionContainer className="pb-4 mb-6">
+            <article className=" max-w-3xl leading-relaxed mx-auto w-full px-4 pt-4">
         <CustomMDX source={post?.content} />
       </article>
-    </Container>
+    </ArticleSectionContainer>
   );
 }

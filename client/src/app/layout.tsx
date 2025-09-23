@@ -16,27 +16,18 @@ const montserrat = Montserrat({subsets: ["latin"], variable: "--font-special"})
 
 export const metadata: Metadata = {
   title: {
-    default: "My Portfolio",
+    default: "Joshi Codes",
     template: `%s | ${siteConfig.name}`,
   },
-  description: "Created with the help of Frontend Tribe",
-  keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
-    "Shadcnui",
-    "Javascript",
-    "Articles",
-  ],
+  description: siteConfig.description,
+  keywords: siteConfig.siteKeywords,
   authors: [
     {
-      name: "Coding Jitsu",
-      url: "https://github.com/codingjitsu",
+      name: siteConfig.author,
+      url: siteConfig.links.github,
     },
   ],
-  creator: "coding jitsu",
+  creator: siteConfig.author,
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -50,13 +41,10 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og`],
-    creator: "@codingJitsu",
+    creator: siteConfig.author,
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "apple-touch-icon.png",
-  },
+  icons: "/icon.svg",
+   
 };
 
 export default function RootLayout({

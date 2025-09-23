@@ -5,7 +5,7 @@ import StarIcon from "@/assets/icons/star.svg";
 import SparkleIcon from "@/assets/icons/sparkle.svg";
 import { HeroOrbit } from "@/components/home/HeroOrbit";
 import { HERO_CONTENT } from "@/static/home/4-hero";
-import { LINKS } from "@/static/home/0-externalLinks";
+import { LINKS } from "@/static/home/0-siteConfig";
 
 export const HeroSection = () => {
   return (

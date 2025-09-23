@@ -27,14 +27,15 @@ export const Timeline = ({ data }: { data: Experience[] }) => {
 
   return (
     <div className="c-space section-spacing" ref={containerRef}>
+      <div className="-mb-4">
       <SectionHeader
         eyebrow="Real-world Engagements"
         title="My Experiences"
         description="My journey so far in the tech field."
-
       />
+      </div>
 
-      <div ref={ref} className="relative pb-20 md:-mt-4 sm:pt-4">
+      <div ref={ref} className="relative pb-20 md:-mt-4  sm:pt-4">
         {data.map((item, index) => (
           <div
             key={index}

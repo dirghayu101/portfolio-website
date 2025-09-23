@@ -10,7 +10,7 @@ export const Footer = () => {
         <div className="border-t border-white/15 py-6 text-sm flex flex-col md:flex-row md:justify-between items-center gap-8">
           <div className="text-white/40">&copy; 2025. All rights reserved</div>
           <nav className="flex flex-col items-center gap-8 md:flex-row">
-            {FOOTER_ITEMS.map((link) =>
+            {FOOTER_ITEMS.mainLinks.map((link) =>
               link.type === "internal" ? (
                 <Link
                   key={link.title}
@@ -32,6 +32,25 @@ export const Footer = () => {
               )
             )}
           </nav>
+        </div>
+        <div className="flex flex-col items-center md:flex-row justify-start gap-8 pb-6 md:-mt-2 text-sm md:pt-0 pt-2 text-white/40">
+          {FOOTER_ITEMS.secondaryLinks.map((link) =>
+            link.type === "internal" ? (
+              <Link
+                key={link.title}
+                href={link.href}
+              >
+                <span className="font-normal hover:text-white">{link.title}</span>
+              </Link>
+            ) : (
+              <a
+                key={link.title}
+                href={link.href}
+              >
+                <span className="font-normal hover:text-white">{link.title}</span>
+              </a>
+            )
+          )}
         </div>
       </div>
     </footer>

@@ -1,22 +1,27 @@
+import { LINKS, SITE_CONFIG } from "@/static/home/0-siteConfig"
+
 type SiteConfig = {
   name: string;
   description: string;
   url: string;
   ogImage: string;
   links: {
-    twitter: string;
+    linkedin: string;
     github: string;
   };
+  author: string;
+  siteKeywords: string[];
 };
 
 export const siteConfig: SiteConfig = {
-  name: "Coding Jitsu articles",
-  description:
-    "An Open source Technical articles platform with Next.js 14 with shadcn/ui, prisma and markdown support.",
-  url: "https://next-articles-cj.vercel.app/",
-  ogImage: "https://next-articles-cj.vercel.app/og",
+  name: SITE_CONFIG.name,
+  description: SITE_CONFIG.description,
+  url: LINKS.Website,
+  ogImage: `${LINKS.Website}/og`,
   links: {
-    twitter: "https://twitter.com/codingjitsu",
-    github: "https://github.com/codingjitsu",
+    linkedin: LINKS.LinkedIn,
+    github: LINKS.Github,
   },
+  author: SITE_CONFIG.authorName,
+  siteKeywords: SITE_CONFIG.siteKeywords
 };

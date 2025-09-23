@@ -8,6 +8,7 @@ import { BreadcrumbWithCustomSeparator } from "@/components/ui/Breadcrumb";
 import { ArticleSectionContainer } from "@/components/articles/ArticleSectionContainer";
 import { SubscriptionForm } from "@/components/articles/SubscriptionForm";
 import { BLOG_SUBSCRIPTION_PITCH } from "@/static/articles/articles-components/2-subscription-pitch";
+import { siteConfig } from "@/static/config/site";
 
 // npm run build tells you about the static and dynamic pages in your application. generateStaticParams converts the rendered page into a static version.
 export async function generateStaticParams() {
@@ -91,7 +92,7 @@ export default function Home({
             url: `${baseUrl}/articles/${post.metadata.category}/${post.slug}`,
             author: {
               "@type": "Person",
-              name: "Coding Jitsu articles",
+              name: siteConfig.author,
             },
           }),
         }}

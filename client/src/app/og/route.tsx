@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export function GET(request: Request) {
   let url = new URL(request.url);
-  let title = url.searchParams.get("title") || "Next.js and MDX articles";
+  let title = url.searchParams.get("title") || "Joshi Codes' articles";
 
   try {
     return new ImageResponse(
@@ -45,7 +45,7 @@ export function GET(request: Request) {
                 fontSize: 20,
               }}
             >
-              coding-jitsu-articles.com
+              joshi.codes
             </span>
           </div>
           <div
