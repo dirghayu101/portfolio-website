@@ -2,15 +2,19 @@
 import { Card } from "@/components/home/Card";
 import { SectionHeader } from "@/components/home/SectionHeader";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { CardHeader } from "@/components/home/CardHeader";
 import { ToolBoxItems } from "@/components/home/ToolboxItems";
 import {motion} from 'framer-motion'
 import { ABOUT } from "@/static/home/7-about";
+import { Modal } from "@/components/home/Modal";
+import { BookDetails } from "@/components/home/BookDetails";
 
 
 export const AboutSection = () => {
   const constraintRef = useRef(null)
+  const [openBookModal, setOpenBookModal] = useState(false);
+  
   return (
     <div className="py-20 lg:py-28">
       <div className="container">
@@ -19,7 +23,8 @@ export const AboutSection = () => {
         />
         <div className="mt-20 flex flex-col gap-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-5 lg:grid-cols-3">
-          <Card className="h-[320px] md:col-span-2 lg:col-span-1">
+            {/* Book Section */}
+          <Card className="h-[320px] md:col-span-2 lg:col-span-1 hover:cursor-pointer" onClick={() => setOpenBookModal(true)}>
             <CardHeader
               {...ABOUT.bookSection}
             />
@@ -27,7 +32,12 @@ export const AboutSection = () => {
               <Image src={ABOUT.bookImage} alt="Book Cover" />
             </div>
           </Card>
-          <Card className="h-[320px] md:col-span-3 lg:col-span-2">
+          <Modal isOpen={openBookModal} onClose={() => setOpenBookModal(false)}>
+           <BookDetails/>
+          </Modal>
+
+          {/* Toolbox Section */}
+          <Card className="h-[320px] md:col-span-3 lg:col-span-2 hover:cursor-pointer">
             <CardHeader
               {...ABOUT.toolboxSection}
               className=""
