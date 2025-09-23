@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <div>
       <ArticlePageHeader heading={ARTICLE_SECTION_HEADER.title} description={ARTICLE_SECTION_HEADER.description} />
-      <AllCategories allPosts={allPosts} />
-      <PopularPosts allPosts={allPosts}/>
       <LatestPosts allPosts={allPosts} />
+      <PopularPosts allPosts={allPosts}/>
+      <AllCategories allPosts={allPosts} />
       <SubscriptionForm />
     </div>
   );

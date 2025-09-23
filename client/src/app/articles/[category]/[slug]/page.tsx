@@ -110,7 +110,7 @@ export default function Home({
             slug={post.slug}
           />
 
-          <h1 className="font-serif tracking-wider text-4xl md:text-4xl sm:text-4xl py-6 sm:py-4 ">
+          <h1 className="font-serif tracking-wider text-2xl md:text-4xl py-6 sm:py-4 ">
             {post.metadata.title}
           </h1>
           <div className="flex flex-col justify-between items-start mb-4 text-sm">

@@ -1,17 +1,17 @@
 export const NAVBAR_ITEMS: {title: string, href: string, sequenceNumber: number, classes?: string}[] = [
     {
         title: "Experiences",
-        href: "",
+        href: "/#experience",
         sequenceNumber: 1
     },
     {
         title: "Project",
-        href: "",
+        href: "/#projects",
         sequenceNumber: 2
     },
     {
         title: "About",
-        href: "",
+        href: "/#about",
         sequenceNumber: 3
     },
     {
