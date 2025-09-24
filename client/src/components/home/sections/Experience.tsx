@@ -1,10 +1,10 @@
 import { Timeline } from "../Timeline";
-import { EXPERIENCES } from "@/static/home/3-experiences";
+import { Experience, EXPERIENCES } from "@/static/home/3-experiences";
 export const ExperienceSection = () => {
   return (
     <section className="mb-6 pb-4 pt-20" id="experience">
       <div className="container">
-        <Timeline data={EXPERIENCES} />
+        <Timeline {...(EXPERIENCES as Experience)} />
       </div>
     </section>
   );

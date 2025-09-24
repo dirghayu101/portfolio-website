@@ -1,11 +1,10 @@
-import memojiImage from "@/assets/images/memoji-computer.png";
-
+import memojiImage from "@/assets/images/heroImage.png";
 
 export const HERO_CONTENT = {
-    status: "Available for new projects",
-    mainHeading: "Building Exceptional User Experiences",
-    description: `I specialize in transforming designs into functional,
-            high-performing web applications. Let's discuss your next
-            project.`,
-    heroMemojiIcon: memojiImage
-}
+  status: "Open to new opportunities",
+  mainHeading: "Hi, I'm Joshi",
+  description:
+    "Full-stack developer with a background in computer science and cloud computing. I build scalable apps and seamless user experiences.",
+  ctaText: "Explore My Work",
+  heroMemojiIcon: memojiImage,
+};

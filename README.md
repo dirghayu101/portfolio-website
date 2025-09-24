@@ -1,31 +1,70 @@
-# Single Page Dev Portfolio Resource Bundle
+# Portfolio Guided
 
-Welcome to the Single Page Dev Portfolio Resource Bundle! This package contains everything you need to create a stunning, interactive portfolio using React, Next.js, TailwindCSS, and Framer Motion.
+A modern, full-stack portfolio and blog platform built with Next.js, Tailwind CSS, and Prisma. Designed for developers to showcase projects, write articles, and manage content with a beautiful, responsive UI.
 
-## Contents
+## Features
 
-This bundle includes two main folders:
+- Personal portfolio homepage
+- Blog/articles with MDX support and code highlighting
+- Responsive navbar with mobile hamburger menu
+- Project and article management
+- Contact form modal
+- Dark mode ready (optional)
+- Optimized images with Next.js
+- Styled with Tailwind CSS and Typography plugin
+- Prisma ORM for database access
 
-1. `designs/` - Contains all the design files
-2. `starter-template/` - Contains the starter code for your portfolio project
+## Tech Stack
+
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin)
+- [Prisma](https://www.prisma.io/)
+- [MDX](https://mdxjs.com/)
+- [rehype-prism-plus](https://github.com/timlrx/rehype-prism-plus) for code highlighting
 
 ## Getting Started
 
-1. Open the files in the `designs/` folder to view the responsive designs
-1. Copy the `starter-template/` folder to your desktop
-1. Drop the `starter-template/` folder into your IDE of choice
-1. Run `npm install` to install dependencies
-1. Run `npm run dev` to start the development server
-1. Open `http://localhost:3000` in your browser to get started
+1. **Install dependencies:**
 
-## Additional Resources
+   ```sh
+   cd client
+   npm install
+   ```
 
-- [Frontend Tribe Youtube Channel](https://www.youtube.com/@frontend-tribe)
+2. **Set up environment variables:**
+   - Copy `.env.example` to `.env` and fill in required values.
 
-## License and Attribution
+3. **Set up the database:**
 
-This portfolio project was heavily inspired by the wonderful portfolio design [located here](https://www.figma.com/community/file/1297484254996536416/personalfolio-portfolio-template).
+   ```sh
+   npx prisma generate
+   npx prisma migrate dev
+   ```
 
-This may be used for personal projects but commercial use is prohibited.
+4. **Run the development server:**
 
-Happy coding, and enjoy building your new portfolio!
+   ```sh
+   npm run dev
+   ```
+
+5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
+
+## Folder Structure
+
+- `client/` — Next.js app and frontend code
+- `client/src/components/` — React components
+- `client/src/app/` — App directory (Next.js routing)
+- `client/prisma/` — Prisma schema
+- `db/` — Database scripts and references
+
+## Customization
+
+- Edit `client/src/components/home/sections/Navbar.tsx` for navigation
+- Add articles in `client/src/static/articles/articles-writeups/`
+- Update styles in `client/src/app/globals.css`
+
+## License
+
+MIT

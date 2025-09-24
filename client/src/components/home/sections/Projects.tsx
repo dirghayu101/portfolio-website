@@ -33,13 +33,15 @@ export const ProjectsSection = () => {
                   </h3>
                   <hr className="border-t-2 border-white/5 mt-4 md:mt-5" />
                   <ul className="flex flex-col gap-4 mt-4 md:mt-5">
-                    {project.results.map((result) => (
+                    {project.results.map((result, index) => (
                       <li
-                        key={result.title}
-                        className="flex gap-2 text-sm text-white/50 md:text-base"
+                        key={index}
+                        className="flex items-start gap-2 text-sm text-white/50 md:text-base"
                       >
-                        <CheckCircleIcon className="size-5 md:size-6" />
-                        <span>{result.title}</span>
+                       <span className="w-6 flex justify-center items-center mt-1">
+                        <CheckCircleIcon className="w-5 h-5  shrink-0" />
+                        </span>
+                        <span className="flex-1">{result.title}</span>
                       </li>
                     ))}
                   </ul>

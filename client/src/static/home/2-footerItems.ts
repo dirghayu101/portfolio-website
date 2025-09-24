@@ -7,7 +7,7 @@ const footerMainLinks = [
     href: LINKS.Github,
   },
   {
-    title: "My articles",
+    title: "My Articles",
     type: "internal",
     href: "/articles",
   },

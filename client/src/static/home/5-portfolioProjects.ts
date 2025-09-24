@@ -1,45 +1,81 @@
-import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
-import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
-import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
+import aToZMovingImage from "@/assets/images/aToZMoving.png";
+import indexShell from "@/assets/images/indexShell.png";
+import cypher from "@/assets/images/cypher.png";
 
 const projects = [
   {
-    company: "Acme Corp",
-    year: "2022",
-    title: "Dark Saas Landing Page",
+    company: "A-Z Moving",
+    year: "2025",
+    title: "CRM System",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      {
+        title:
+          "Built a custom CRM as a cost-effective alternative to Salesforce, tailored to client workflows.",
+      },
+      {
+        title:
+          "Designed a clean, user-friendly interface that boosted client adoption and satisfaction.",
+      },
+      {
+        title:
+          "Implemented role-based access and compliance features, strengthening data security.",
+      },
+      {
+        title:
+          "Enhanced reporting dashboards, enabling faster and more informed decision-making.",
+      },
     ],
-    link: "https://youtu.be/4k7IdSLxh6w",
-    image: darkSaasLandingPage,
+    link: "https://drive.google.com/file/d/1oMBIHKIvWaGN31YHJi6r3EiSEgBiD71s/view",
+    image: aToZMovingImage,
   },
   {
-    company: "Innovative Co",
-    year: "2021",
-    title: "Light Saas Landing Page",
+    company: "Capstone Project",
+    year: "2024",
+    title: "Index Shell",
     results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
+      {
+        title:
+          "Developed a web tool to index and search shell commands, simplifying DevOps workflows.",
+      },
+      {
+        title:
+          "Improved search and tagging features, reducing time spent locating commands.",
+      },
+      {
+        title:
+          "Automated command execution, streamlining repetitive tasks for developers.",
+      },
+      {
+        title:
+          "Integrated AWS Lambda, Cognito, API Gateway, and DynamoDB for a secure, scalable backend.",
+      },
     ],
-    link: "https://youtu.be/7hi5zwO75yc",
-    image: lightSaasLandingPage,
+    link: "https://github.com/dirghayu101/index-shell/tree/experiment",
+    image: indexShell,
   },
   {
-    company: "Quantum Dynamics",
+    company: "Cybernetics Association",
     year: "2023",
-    title: "AI Startup Landing Page",
+    title: "Cypher",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      {
+        title:
+          "Created a competition platform for 100+ participants, achieving a 100% satisfaction rate.",
+      },
+      {
+        title:
+          "Deployed on Google Cloud Platform, ensuring scalability during live events.",
+      },
+      {
+        title:
+          "Enabled real-time interaction using Socket.io and Firebase with Express, and secured access with Google OAuth.",
+      },
     ],
-    link: "https://youtu.be/Z7I5uSRHMHg",
-    image: aiStartupLandingPage,
+    link: "https://github.com/dirghayu101/cypher-event",
+    image: cypher,
   },
 ];
+
 
 const keywords = [
   "Performant",

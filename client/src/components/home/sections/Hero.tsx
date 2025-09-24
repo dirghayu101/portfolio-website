@@ -6,6 +6,7 @@ import SparkleIcon from "@/assets/icons/sparkle.svg";
 import { HeroOrbit } from "@/components/home/HeroOrbit";
 import { HERO_CONTENT } from "@/static/home/4-hero";
 import { LINKS } from "@/static/home/0-siteConfig";
+import Link from "next/link";
 
 export const HeroSection = () => {
   return (
@@ -60,7 +61,7 @@ export const HeroSection = () => {
         <div className="flex flex-col items-center">
           <Image
             src={HERO_CONTENT.heroMemojiIcon}
-            className="size-[100px]"
+            className="size-[165px] w-40"
             alt="Person peeking from behind laptop"
           />
           <div className="bg-gray-950 border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-lg">
@@ -81,12 +82,14 @@ export const HeroSection = () => {
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4">
-          <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl">
-            <span className="font-semibold">Explore My Work</span>
+          <Link href="/#projects" >
+          <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl hover:bg-white/10">
+            <span className="font-semibold">{HERO_CONTENT.ctaText}</span>
             <ArrowDown className="size-4" />
           </button>
+          </Link>
 
-          <a href={LINKS.LinkedIn} className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl hover:cursor-pointer">
+          <a href={LINKS.LinkedIn} className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl hover:cursor-pointer hover:bg-white/90">
             <span>👋</span>
             <span className="font-semibold">Let&#39;s Connect</span>
           </a>

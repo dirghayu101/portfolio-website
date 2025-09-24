@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import { SectionHeader } from "./SectionHeader";
 
-export const Timeline = ({ data }: { data: Experience[] }) => {
+export const Timeline = (data: Experience) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -29,14 +29,14 @@ export const Timeline = ({ data }: { data: Experience[] }) => {
     <div className="c-space section-spacing" ref={containerRef}>
       <div className="-mb-4">
       <SectionHeader
-        eyebrow="Real-world Engagements"
-        title="My Experiences"
-        description="My journey so far in the tech field."
+        eyebrow={data.sectionEyebrow}
+        title={data.sectionTitle}
+        description={data.sectionDescription}
       />
       </div>
 
       <div ref={ref} className="relative pb-20 md:-mt-4  sm:pt-4">
-        {data.map((item, index) => (
+        {data.experienceBody.map((item, index) => (
           <div
             key={index}
             className="flex justify-start pt-10 md:pt-40 md:gap-10"

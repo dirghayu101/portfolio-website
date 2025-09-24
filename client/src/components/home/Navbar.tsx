@@ -50,7 +50,7 @@ export const Navbar = () => {
         </Link>
 
         <Link
-          href=""
+          href="#"
           onClick={() => setContactOpen(true)}
           className="md:flex hidden nav-item"
         >

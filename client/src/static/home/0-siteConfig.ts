@@ -4,8 +4,8 @@ const siteKeywords = [
     "React",
     "Tailwind CSS",
     "Server Components",
-    "Radix UI",
-    "Javascript",
+    "TypeScript",
+    "JavaScript",
     "Portfolio",
     "Articles",
   ]

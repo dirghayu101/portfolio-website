@@ -1,41 +1,41 @@
-import bookImage from "@/assets/images/book-cover.png";
+import bookImage from "@/assets/images/bookCover.png";
 import JavascriptIcon from "@/assets/icons/square-js.svg";
 import HTMLIcon from "@/assets/icons/html5.svg";
 import CSSIcon from "@/assets/icons/css3.svg";
 import ReactIcon from "@/assets/icons/react.svg";
 import ChromeIcon from "@/assets/icons/chrome.svg";
 import GithubIcon from "@/assets/icons/github.svg";
-import mapImage from "@/assets/images/map.png";
-import smileMemoji from "@/assets/images/memoji-smile.png";
+import mapImage from "@/assets/images/torontoMap.png";
+import smileMemoji from "@/assets/images/smileFace.png";
 
 const hobbyList = [
   {
-    title: "Painting",
-    emoji: "🎨",
+    title: "Writing",
+    emoji: "✍️",
     left: "5%",
     top: "5%",
   },
   {
-    title: "Photography",
-    emoji: "📸",
+    title: "Meditation",
+    emoji: "🧘",
     left: "50%",
     top: "5%",
   },
   {
-    title: "Hiking",
+    title: "Walking",
     emoji: "🥾",
     left: "35%",
     top: "40%",
   },
   {
-    title: "Gaming",
-    emoji: "🎮",
+    title: "Journaling",
+    emoji: "📓",
     left: "10%",
     top: "35%",
   },
   {
-    title: "Music",
-    emoji: "🎵",
+    title: "Dancing",
+    emoji: "💃",
     left: "70%",
     top: "45%",
   },
@@ -94,7 +94,7 @@ export const ABOUT = {
     bookImage: bookImage,
     toolboxSection: {
         title: "My Toolbox",
-        description: "Explore the technologies and tools I use to craft exceptional digital experiences."
+        description: "Explore the tools that I use to craft my self-proclaimed pieces of art"
     },
     toolboxItems: toolboxItems,
     hobbySection: {
@@ -105,6 +105,3 @@ export const ABOUT = {
     locationMap: mapImage,
     mapMemojiIcon: smileMemoji
 }
-
-
-
