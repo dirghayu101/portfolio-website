@@ -1,0 +1,153 @@
+---
+title: "Mastering Creational Design Patterns in TypeScript: Prototype and Builder"
+publishedAt: "2025-08-02"
+summary: "This article dives into the Prototype and Builder design patterns in TypeScript. It explains key terminology, distinguishing patterns from algorithms. TypeScript examples illustrate practical implementation for flexible, reusable code."
+category: "design-patterns"
+---
+Design patterns serve as essential tools in software development, offering proven solutions to common challenges. In this article, we delve into key terminology and focus on two creational design patterns: the Prototype Pattern and the Builder Pattern. These patterns enhance code flexibility, reusability, and efficiency when creating objects in TypeScript.
+
+---
+
+## Introduction to Design Pattern Terminology
+
+Creational design patterns focus on providing various mechanisms for object creation, which boost flexibility and promote the reuse of existing code. Structural design patterns outline ways to combine objects and classes into larger, more adaptable structures while maintaining efficiency. Behavioral design patterns deal with algorithms and how responsibilities are distributed among objects.
+
+Design patterns represent typical solutions to frequently encountered problems in software design. They function like customizable blueprints that address recurring design issues in your code. Rather than copying a pattern directly into your program as you would with ready-made functions or libraries, a pattern offers a general concept for tackling a specific problem. You can adapt the pattern's details to fit your program's unique requirements.
+
+Patterns are sometimes mistaken for algorithms since both provide standard solutions to known issues. However, an algorithm specifies a precise sequence of steps to reach a goal, whereas a pattern delivers a higher-level overview of a solution. The implementation of the same pattern can differ between programs. To illustrate, think of an algorithm as a cooking recipe with explicit instructions. A pattern, by contrast, resembles a blueprint: it shows the end result and its characteristics, but the implementation sequence depends on you.
+
+---
+
+## The Prototype Pattern
+
+The Prototype Pattern excels in scenarios requiring object cloning, particularly in TypeScript where simple assignments often create references rather than true copies. This pattern ensures independent duplicates, avoiding unintended shared state modifications.
+
+Consider a situation involving a large object that needs duplication with minor property adjustments. The Prototype Pattern streamlines this process by allowing clones to be created efficiently. A common pitfall in JavaScript and TypeScript is reference errors, where changes to a copied object affect the original. The Prototype Pattern mitigates this, making it a frequent choice in these languages.
+
+Understanding shallow versus deep copying is crucial. In a shallow copy, primitive values are duplicated, but nested objects remain referenced. For instance:
+
+```js
+let originalObject = {
+   a: 'john',
+   b: {
+       c: 'Whiskey'
+   }
+};
+
+let shallowCopyOriginalObject = {...originalObject};
+shallowCopyOriginalObject.b.c = 'Vodka';
+// Outputs 'Vodka'
+console.log(shallowCopyOriginalObject.b.c);
+// Also outputs 'Vodka', but should be 'Whiskey'
+console.log(originalObject.b.c);
+```
+
+To achieve a deep copy, which fully duplicates nested structures, one approach is:
+
+```js
+let deepCopyOriginalObject = JSON.parse(JSON.stringify(originalObject));
+```
+
+However, this method fails with objects containing methods, as JSON serialization omits functions. For complex objects with numerous methods, implementing a deep copy becomes challenging. You might need a custom clone method that recursively duplicates all properties and methods.
+
+In practice, the Prototype Pattern appears in graphic editors for duplicating shapes, game development for spawning non-player characters (NPCs), replicating database schemas, and data processing pipelines where cloning maintains consistency. It reduces the overhead of creating objects from scratch, especially when initialization is resource-intensive.
+
+For implementation in TypeScript, define a clone method in your classes. Here's an adapted example inspired by a customer registry system:
+
+```typescript
+interface Customer {
+    name: string;
+    contactNo: string;
+    clone(): Customer;
+}
+
+class LoyalCustomer implements Customer {
+    name: string = 'Default Loyal';
+    contactNo: string = '000-000-0000';
+    discountRate: number = 0.1;
+
+    clone(): Customer {
+        const clone = Object.create(this);
+        Object.assign(clone, this);
+        // For deep copy, recursively clone nested objects if needed
+        return clone;
+    }
+}
+
+// Usage
+const prototype = new LoyalCustomer();
+const clone1 = prototype.clone();
+clone1.name = 'Alice';
+```
+
+This approach decouples cloning from specific classes, promoting flexibility.
+
+---
+
+## The Builder Pattern
+
+The Builder Pattern involves components such as a Concrete Builder for assembling parts, individual builder parts (like Part A, Part B, and so on), and a Director to orchestrate the construction. This pattern suits complex objects requiring a step-by-step assembly process.
+
+A notable syntax in TypeScript implementations is the definite assignment assertion, like `private product!: Product;`. This tells the compiler that the `product` property will be assigned a value before use, even if not initialized in the constructor. It prevents strict null checks from flagging potential undefined values.
+
+The Builder Pattern addresses the combination explosion problem, where numerous attribute combinations lead to an unmanageable number of constructors or subclasses. This combinatorial growth complicates code maintenance, as each new attribute multiplies possible variants exponentially. By separating construction logic, the Builder allows flexible assembly without proliferating entry points.
+
+It's ideal for creating immutable objects with many attributes, ensuring all necessary parts are set before finalizing the object. Clients can use the builder directly without a director, though this may increase runtime error risks if steps are omitted.
+
+Here's a TypeScript example for building a complex product like a car:
+
+```typescript
+class Car {
+    engine: string;
+    seats: number;
+    gps: boolean;
+
+    constructor(builder: CarBuilder) {
+        this.engine = builder.engine;
+        this.seats = builder.seats;
+        this.gps = builder.gps;
+    }
+}
+
+class CarBuilder {
+    engine: string = 'standard';
+    seats: number = 4;
+    gps: boolean = false;
+
+    setEngine(engine: string): CarBuilder {
+        this.engine = engine;
+        return this;
+    }
+
+    setSeats(seats: number): CarBuilder {
+        this.seats = seats;
+        return this;
+    }
+
+    setGPS(gps: boolean): CarBuilder {
+        this.gps = gps;
+        return this;
+    }
+
+    build(): Car {
+        return new Car(this);
+    }
+}
+
+// Usage
+const sportsCar = new CarBuilder()
+    .setEngine('V8')
+    .setSeats(2)
+    .setGPS(true)
+    .build();
+```
+
+This fluent interface simplifies creating varied configurations.
+
+---
+
+## References
+
+For further reading on the Prototype Pattern implementation, explore this resource on Java adaptations: [Understanding Prototype Pattern](https://medium.com/design-patterns-with-java/understanding-prototype-pattern-377e93dd93d8).
+
+For a deeper dive into design patterns fundamentals: [What's a design pattern?](https://refactoring.guru/design-patterns/what-is-pattern).

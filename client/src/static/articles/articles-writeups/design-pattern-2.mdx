@@ -1,0 +1,220 @@
+---
+title: "Exploring Composite, Decorator, and Adapter Patterns in TypeScript"
+publishedAt: "2025-08-21"
+summary: "A practical guide to understanding the Composite, Decorator, and Adapter structural design patterns in TypeScript, with explanations and code examples."
+category: "design-patterns"
+---
+
+Structural design patterns focus on organizing objects and classes into larger, flexible, and maintainable structures. In TypeScript, the Composite, Decorator, and Adapter patterns are powerful tools for managing complex object hierarchies, extending functionality dynamically, and integrating incompatible interfaces. This article explores these patterns, their use cases, and provides practical TypeScript examples to illustrate their implementation.
+
+---
+
+## Composite Pattern (Structural Design Pattern)
+
+The Composite pattern allows you to compose objects into tree-like structures and work with them as if they were individual objects. This pattern is ideal for handling hierarchical or nested objects, enabling uniform treatment of both individual elements and their collections.
+
+The pattern consists of three main components: a `Component` interface defining common operations, `Leaf` classes representing individual objects, and `Composite` classes that contain collections of leaves or other composites. This structure resembles a tree, where composites act as nodes with children, and leaves are terminal nodes.
+
+While the Composite pattern simplifies working with complex hierarchies, it can introduce challenges, such as tight coupling between composites and leaves or difficulties in type checking in TypeScript. Additionally, it may violate the Single Responsibility Principle if the composite takes on too many responsibilities.
+
+---
+
+### Example: File System Hierarchy
+
+Below is a TypeScript example of the Composite pattern for a file system with files (leaves) and directories (composites):
+
+```typescript
+interface FileSystemComponent {
+  getSize(): number;
+  getName(): string;
+}
+
+class File implements FileSystemComponent {
+  private name: string;
+  private size: number;
+
+  constructor(name: string, size: number) {
+    this.name = name;
+    this.size = size;
+  }
+
+  getSize(): number {
+    return this.size;
+  }
+
+  getName(): string {
+    return this.name;
+  }
+}
+
+class Directory implements FileSystemComponent {
+  private name: string;
+  private components: FileSystemComponent[] = [];
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  add(component: FileSystemComponent): void {
+    this.components.push(component);
+  }
+
+  getSize(): number {
+    return this.components.reduce((total, component) => total + component.getSize(), 0);
+  }
+
+  getName(): string {
+    return this.name;
+  }
+}
+
+// Client code
+const file1 = new File("document.txt", 100);
+const file2 = new File("image.png", 200);
+const directory = new Directory("MyFolder");
+directory.add(file1);
+directory.add(file2);
+
+console.log(`${directory.getName()} size: ${directory.getSize()} bytes`);
+// Output: MyFolder size: 300 bytes
+```
+
+This example demonstrates how the Composite pattern allows uniform handling of files and directories, calculating the total size of a directory by summing its contents.
+
+---
+
+## Decorator Pattern (Structural Design Pattern)
+
+The Decorator pattern enables dynamic addition or modification of an object's behavior without altering its implementation. It is particularly useful when you want to extend the functionality of a specific object without affecting others of the same class or when subclassing is not feasible (e.g., for classes marked as `final` in some languages).
+
+The pattern includes a `Component` interface, a `ConcreteComponent` class, a `Decorator` base class, and `ConcreteDecorator` classes that add specific behaviors. In TypeScript, decorators leverage composition and the `super` keyword to extend behavior, often avoiding the need for extensive subclassing while adhering to the Single Responsibility Principle.
+
+However, the order of decorators matters, and extensive use can lead to a proliferation of small objects, complicating the codebase. Optional methods in the interface can also pose challenges in TypeScript's type system.
+
+---
+
+### Example: Coffee Customization
+
+Here's a TypeScript example of the Decorator pattern for customizing coffee orders:
+
+```typescript
+interface Coffee {
+  cost(): number;
+  description(): string;
+}
+
+class SimpleCoffee implements Coffee {
+  cost(): number {
+    return 5;
+  }
+
+  description(): string {
+    return "Simple Coffee";
+  }
+}
+
+abstract class CoffeeDecorator implements Coffee {
+  protected coffee: Coffee;
+
+  constructor(coffee: Coffee) {
+    this.coffee = coffee;
+  }
+
+  abstract cost(): number;
+  abstract description(): string;
+}
+
+class MilkDecorator extends CoffeeDecorator {
+  cost(): number {
+    return this.coffee.cost() + 2;
+  }
+
+  description(): string {
+    return `${this.coffee.description()}, Milk`;
+  }
+}
+
+class SugarDecorator extends CoffeeDecorator {
+  cost(): number {
+    return this.coffee.cost() + 1;
+  }
+
+  description(): string {
+    return `${this.coffee.description()}, Sugar`;
+  }
+}
+
+// Client code
+let coffee: Coffee = new SimpleCoffee();
+console.log(`${coffee.description()}: $${coffee.cost()}`);
+// Output: Simple Coffee: $5
+
+coffee = new MilkDecorator(coffee);
+coffee = new SugarDecorator(coffee);
+console.log(`${coffee.description()}: $${coffee.cost()}`);
+// Output: Simple Coffee, Milk, Sugar: $8
+```
+
+This example shows how decorators dynamically add features (milk, sugar) to a coffee order, maintaining flexibility without modifying the base class.
+
+---
+
+## Adapter Pattern (Structural Design Pattern)
+
+The Adapter pattern allows incompatible interfaces to work together by wrapping an existing class with a new interface. It is commonly used when integrating legacy systems or third-party libraries with standardized interfaces, such as in plug-in architectures like VS Code.
+
+The pattern can be implemented using an Object Adapter (via composition, preferred in TypeScript due to limited support for multiple inheritance) or a Class Adapter (via inheritance). While the Adapter pattern enhances compatibility, it may introduce coupling if the adapted class is volatile and can increase documentation needs due to added complexity.
+
+---
+
+### Example: Legacy System Integration
+
+Below is a TypeScript example of the Adapter pattern to integrate a legacy payment system with a modern interface:
+
+```typescript
+interface ModernPayment {
+  pay(amount: number): string;
+}
+
+class LegacyPaymentSystem {
+  makePayment(cents: number): string {
+    return `Paid ${cents / 100} USD using legacy system`;
+  }
+}
+
+class PaymentAdapter implements ModernPayment {
+  private legacySystem: LegacyPaymentSystem;
+
+  constructor(legacySystem: LegacyPaymentSystem) {
+    this.legacySystem = legacySystem;
+  }
+
+  pay(amount: number): string {
+    return this.legacySystem.makePayment(amount * 100);
+  }
+}
+
+// Client code
+const legacySystem = new LegacyPaymentSystem();
+const adapter = new PaymentAdapter(legacySystem);
+console.log(adapter.pay(50));
+// Output: Paid 50 USD using legacy system
+```
+
+This example demonstrates how the Adapter pattern enables a modern payment interface to work with a legacy system, converting dollars to cents as needed.
+
+---
+
+## Conclusion
+
+The Composite, Decorator, and Adapter patterns are essential for building flexible and maintainable TypeScript applications. The Composite pattern simplifies working with hierarchical structures, the Decorator pattern enables dynamic behavior extension, and the Adapter pattern bridges incompatible interfaces. By applying these patterns with the provided examples, developers can create robust systems that are easier to extend and integrate, whether dealing with complex object trees, dynamic functionality, or legacy codebases.
+
+---
+
+## References
+
+1. [Composite Pattern](https://refactoring.guru/design-patterns/composite)
+2. [Decorator Pattern](https://cloudaffle.com/series/structural-design-patterns/decorator-pattern/)
+3. [Adapter Pattern](https://cloudaffle.com/series/structural-design-patterns/adapter-pattern/)
+4. [Adapter Pattern Implementation](https://refactoring.guru/design-patterns/adapter)
+5. [Decorator Pattern Advanced](https://refactoring.guru/design-patterns/decorator)

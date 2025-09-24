@@ -1,0 +1,197 @@
+---
+title: "Schemas, Ownership Chains, Indexes, and OODBs vs RDBs"
+publishedAt: "2025-04-08"
+summary: "Breaking down SQL Server schemas, views, indexes, and comparing object-oriented databases with relational ones."
+category: "database"
+---
+
+## Schemas in SQL Server
+
+Schemas in Microsoft SQL Server provide a way to **organize and secure database objects**. They act as a namespace, helping to logically group objects together and avoid naming collisions.
+
+### Object Naming Convention
+
+The full reference to a database object follows this structure:
+
+```
+
+server\_name.db\_name.schema\_name.object\_name
+
+```
+
+- **server_name** → Name of the SQL Server instance.  
+- **db_name** → Name of the database.  
+- **schema_name** → Namespace containing the object.  
+- **object_name** → The table, view, or other database object.  
+
+Example:  
+
+```
+
+AdventureWorks2012.HumanResources.Employee
+
+```
+
+Here, `HumanResources` is the schema, and `Employee` is the table.
+
+### Observations in AdventureWorks
+
+Some examples:  
+
+- `HumanResources.Department`  
+- `Person.Address`  
+- `Production.Product`  
+
+Schemas segregate objects logically. For instance, Human Resources has no overlap with Production, so they're stored under different schemas.
+
+### Key Points
+
+- Both **schema_name.object_name** and **column names** must be unique within scope.  
+- If you don't specify a schema, SQL Server defaults to **dbo** (Database Owner).  
+- `CREATE SCHEMA` is **atomic**—it either succeeds entirely or fails without partial changes.  
+
+### Oracle vs SQL Server
+
+- In **Oracle**, a schema is essentially the **user**. Each user owns a schema.  
+- In **SQL Server**, a schema is a **namespace** that can be assigned to multiple users (principals).  
+
+### Legacy Systems
+
+- In SQL Server 2000 and earlier, schemas didn't exist. Objects were tied to **owners**, so you'd see references like:  
+
+```
+
+David.Employee
+
+````
+
+Instead of modern `schema.object` syntax.
+
+### Principals & Permissions
+
+- In SQL Server, users are called **principals**.  
+- Principals aren't directly tied to objects syntactically.  
+- To see database owners:  
+
+```sql
+-- System wide
+SELECT suser_sname(owner_sid) FROM sys.databases;
+
+-- Specific DB
+SELECT suser_sname(owner_sid) 
+FROM sys.databases 
+WHERE name = 'SearchTargetDatabaseName';
+````
+
+### DBL vs DBO
+
+* **DBL (Database Level)** → Refers to scope of operations, settings, roles, and permissions within a database.
+* **DBO (Database Owner)** → Special user with full control. By default, objects created without a schema are assigned to **dbo**.
+
+---
+
+## Ownership Chains & Views
+
+A **view** is a virtual table defined by a `SELECT` statement. It simplifies queries, encapsulates logic, and controls access.
+
+Think of a view as **storing a query definition**, not the data itself (except in the case of indexed/materialized views).
+
+### Benefits of Views
+
+* Encapsulation of complex queries.
+* Restriction of sensitive data (expose only certain columns/rows).
+* Simplified reuse of frequently used logic.
+
+### Types of Views in SQL Server
+
+* **Standard Views** → Created with `CREATE VIEW`. Do not store data, only query definitions.
+* **Indexed Views** → Also called **materialized views**. Store the result set physically for performance at the cost of extra storage/maintenance.
+* **Partitioned Views** → Split large tables into smaller pieces for manageability. Can be local (one DB) or distributed (multiple DBs).
+* **System Views** → Predefined read-only views that expose SQL Server metadata (e.g., in the `sys` schema).
+
+---
+
+## Indexes in SQL Server
+
+Indexes speed up reads but come with a trade-off: **slower writes**.
+
+### Index Trade-offs in Transactional Databases
+
+* **OLTP (transactional) databases** are optimized for writing (INSERT, UPDATE, DELETE).
+* Every change requires index maintenance, which slows performance if there are too many indexes.
+* Minimize indexes for transactional systems.
+
+👉 Always use numeric datatypes for primary keys, not character keys.
+
+### B-Tree Indexes
+
+* SQL Server indexes are typically implemented as **B-trees (Balanced Trees)**.
+* They ensure all leaf nodes are at the same depth, balancing searches and updates.
+
+#### Components:
+
+* **Root Node** → Entry point.
+* **Intermediate Nodes** → Branch levels.
+* **Leaf Nodes** → Contain pointers to actual data (non-clustered) or the data itself (clustered).
+
+### Clustered vs Non-clustered Indexes
+
+* **Clustered Index** → Defines physical row order in the table.
+
+  * Only **one clustered index per table**.
+  * Often built on the primary key.
+  * If not on a unique column, SQL Server will add a hidden 4-byte unique identifier.
+* **Heap** → A table without a clustered index.
+
+### Partitions
+
+A **partition** divides a large table or index into smaller chunks.
+
+* Each partition can be stored in a separate **filegroup**.
+* Improves performance, manageability, and scalability.
+* Commonly used for time-based data (e.g., partitioning by `date`).
+
+---
+
+## Object-Oriented vs Relational Databases
+
+### Cost
+
+* **OODBs (e.g., MongoDB)**: Often more expensive in terms of storage/memory due to flexible schemas.
+* **RDBs (SQL Server, MySQL)**: More efficient storage with structured schemas.
+
+### Performance
+
+* **OODBs**: Faster for flexible models, hierarchical data, or when schema evolution is frequent.
+* **RDBs**: Faster for structured queries, joins, and well-defined schemas.
+
+### Scalability
+
+* **OODBs**: Designed for horizontal scaling (sharding, replication).
+* **RDBs**: Traditionally vertical, though modern RDBs support horizontal partitioning/replication.
+
+### Flexibility
+
+* **OODBs**: Schema-less, highly flexible, intuitive for developers.
+* **RDBs**: Rigid schemas but ensure integrity and consistency.
+
+### Use Cases
+
+* **MongoDB**: Web apps, real-time analytics, CMS, evolving schemas.
+* **SQL Server/MySQL**: Enterprise, finance, systems requiring transactions and complex queries.
+
+👉 **Conclusion**: Choice depends on requirements—performance, scalability, flexibility, and cost all vary by use case.
+
+---
+
+## Common Questions
+
+### Are objects and tables the same in SQL Server?
+
+No. **Tables** are one type of object. Other objects include views, indexes, procedures, and functions.
+
+### Why can't you have two clustered indexes?
+
+A clustered index defines the **physical order** of data in a table. Since data can only be ordered one way, you can only have **one clustered index per table**.
+
+Even if data is mirrored across disks, the logical structure (one physical order) remains.

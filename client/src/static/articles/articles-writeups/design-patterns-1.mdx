@@ -1,0 +1,293 @@
+---
+title: "Understanding Factory, Abstract Factory, Facade, and Bridge Patterns in TypeScript"
+publishedAt: "2025-08-15"
+summary: "A practical guide to understanding the Factory, Abstract Factory, Facade, and Bridge design patterns in TypeScript, with explanations and code examples."
+category: "design-patterns"
+---
+
+Design patterns are essential tools for creating maintainable and scalable software. In TypeScript, design patterns like Factory, Abstract Factory, Facade, and Bridge help developers manage object creation and system complexity effectively. This article explores these four patterns, their purposes, and how they can be applied in TypeScript with practical code examples to improve code structure and flexibility.
+
+## Factory Pattern (Creational Design Pattern)
+
+The Factory pattern is a creational design pattern that centralizes the creation of related objects into a single class, abstracting away the complexity of instantiation. This pattern is particularly useful when dealing with multiple similar classes, as it eliminates repetitive code and reduces the risk of errors.
+
+In TypeScript, the Factory pattern often leverages abstract classes to define common behavior. Unlike interfaces, abstract classes allow you to implement shared methods and define constructors, adhering to the DRY (Don't Repeat Yourself) principle. The pattern typically involves an abstract class with shared logic, concrete classes extending it, and a factory class responsible for creating and returning objects to the client. The client only interacts with the factory, keeping the object creation process encapsulated.
+
+The Factory Method, a variant of this pattern, provides an interface for creating objects in a superclass while allowing subclasses to determine the specific type of objects created. Instead of directly using the `new` operator, the client calls a factory method, which handles object creation internally.
+
+### Example: Vehicle Factory
+
+Below is a TypeScript example of the Factory pattern for creating different types of vehicles:
+
+```typescript
+abstract class Vehicle {
+  abstract drive(): string;
+}
+
+class Car extends Vehicle {
+  drive(): string {
+    return "Driving a car";
+  }
+}
+
+class Truck extends Vehicle {
+  drive(): string {
+    return "Driving a truck";
+  }
+}
+
+class VehicleFactory {
+  static createVehicle(type: string): Vehicle {
+    switch (type) {
+      case "car":
+        return new Car();
+      case "truck":
+        return new Truck();
+      default:
+        throw new Error("Unknown vehicle type");
+    }
+  }
+}
+
+// Client code
+const car = VehicleFactory.createVehicle("car");
+console.log(car.drive()); // Output: Driving a car
+const truck = VehicleFactory.createVehicle("truck");
+console.log(truck.drive()); // Output: Driving a truck
+```
+
+In this example, the `VehicleFactory` class encapsulates the creation logic, allowing the client to create vehicles without knowing the details of their instantiation.
+
+---
+
+## Abstract Factory Pattern (Creational Design Pattern)
+
+The Abstract Factory pattern extends the Factory pattern by enabling the creation of families of related or dependent objects without specifying their concrete classes. This is useful when you need to ensure consistency across a group of objects that work together.
+
+In TypeScript, the Abstract Factory pattern starts by defining interfaces for each product in a family (e.g., `Chair`, `Sofa`). Each product variant implements these interfaces (e.g., `ModernChair`, `VictorianChair`). An `AbstractFactory` interface declares creation methods for each product type (e.g., `createChair`, `createSofa`). Concrete factory classes, like `ModernFurnitureFactory`, implement this interface to produce specific product variants.
+
+The client code interacts with factories and products through their abstract interfaces, allowing you to swap factories or product variants without altering the client code.
+
+---
+
+### Example: Furniture Factory
+
+Here’s a TypeScript example of the Abstract Factory pattern for creating furniture families:
+
+```typescript
+interface Chair {
+  sit(): string;
+}
+
+interface Sofa {
+  lieDown(): string;
+}
+
+interface AbstractFurnitureFactory {
+  createChair(): Chair;
+  createSofa(): Sofa;
+}
+
+class ModernChair implements Chair {
+  sit(): string {
+    return "Sitting on a modern chair";
+  }
+}
+
+class ModernSofa implements Sofa {
+  lieDown(): string {
+    return "Lying on a modern sofa";
+  }
+}
+
+class VictorianChair implements Chair {
+  sit(): string {
+    return "Sitting on a Victorian chair";
+  }
+}
+
+class VictorianSofa implements Sofa {
+  lieDown(): string {
+    return "Lying on a Victorian sofa";
+  }
+}
+
+class ModernFurnitureFactory implements AbstractFurnitureFactory {
+  createChair(): Chair {
+    return new ModernChair();
+  }
+  createSofa(): Sofa {
+    return new ModernSofa();
+  }
+}
+
+class VictorianFurnitureFactory implements AbstractFurnitureFactory {
+  createChair(): Chair {
+    return new VictorianChair();
+  }
+  createSofa(): Sofa {
+    return new VictorianSofa();
+  }
+}
+
+// Client code
+function furnishRoom(factory: AbstractFurnitureFactory) {
+  const chair = factory.createChair();
+  const sofa = factory.createSofa();
+  console.log(chair.sit());
+  console.log(sofa.lieDown());
+}
+
+furnishRoom(new ModernFurnitureFactory());
+// Output: Sitting on a modern chair
+//         Lying on a modern sofa
+
+furnishRoom(new VictorianFurnitureFactory());
+// Output: Sitting on a Victorian chair
+//         Lying on a Victorian sofa
+```
+
+This example demonstrates how the Abstract Factory pattern ensures consistent furniture styles while keeping the client code independent of specific implementations.
+
+---
+
+## Facade Pattern (Structural Design Pattern)
+
+The Facade pattern is a structural design pattern that provides a simplified interface to a complex subsystem, hiding its intricacies from the client. Structural patterns focus on composing objects and classes to form larger, flexible, and maintainable structures.
+
+In TypeScript, a facade is a class that wraps a complex subsystem, exposing only the functionality that clients need. This reduces the learning curve for using the subsystem and minimizes dependencies. However, care must be taken to avoid creating a "god object"—an anti-pattern where a single class becomes overly coupled to many parts of the system.
+
+---
+
+### Example: Multimedia System Facade
+
+Below is a TypeScript example of the Facade pattern for a multimedia system:
+
+```typescript
+class AudioSystem {
+  playSound(): string {
+    return "Playing audio";
+  }
+}
+
+class VideoSystem {
+  displayVideo(): string {
+    return "Displaying video";
+  }
+}
+
+class DisplaySystem {
+  showScreen(): string {
+    return "Screen is on";
+  }
+}
+
+class MultimediaFacade {
+  private audio: AudioSystem;
+  private video: VideoSystem;
+  private display: DisplaySystem;
+
+  constructor() {
+    this.audio = new AudioSystem();
+    this.video = new VideoSystem();
+    this.display = new DisplaySystem();
+  }
+
+  playMovie(): string {
+    return `${this.display.showScreen()}\n${this.video.displayVideo()}\n${this.audio.playSound()}`;
+  }
+}
+
+// Client code
+const multimedia = new MultimediaFacade();
+console.log(multimedia.playMovie());
+// Output: Screen is on
+//         Displaying video
+//         Playing audio
+```
+
+The `MultimediaFacade` simplifies interaction with the subsystem, allowing the client to play a movie with a single method call.
+
+---
+
+## Bridge Pattern (Structural Design Pattern)
+
+The Bridge pattern is a structural design pattern that separates a class’s abstraction from its implementation, allowing the two to evolve independently. This is useful for managing large classes with multiple variants of functionality.
+
+In TypeScript, the Bridge pattern splits a monolithic class into two hierarchies: abstraction and implementation. This separation simplifies maintenance, as changes to one hierarchy don’t affect the other.
+
+---
+
+### Example: Graphics Rendering
+
+Here’s a TypeScript example of the Bridge pattern for a graphics application:
+
+```typescript
+interface Renderer {
+  renderShape(shape: string): string;
+}
+
+class OpenGLRenderer implements Renderer {
+  renderShape(shape: string): string {
+    return `Rendering ${shape} using OpenGL`;
+  }
+}
+
+class DirectXRenderer implements Renderer {
+  renderShape(shape: string): string {
+    return `Rendering ${shape} using DirectX`;
+  }
+}
+
+abstract class Shape {
+  protected renderer: Renderer;
+
+  constructor(renderer: Renderer) {
+    this.renderer = renderer;
+  }
+
+  abstract draw(): string;
+}
+
+class Circle extends Shape {
+  draw(): string {
+    return this.renderer.renderShape("Circle");
+  }
+}
+
+class Square extends Shape {
+  draw(): string {
+    return this.renderer.renderShape("Square");
+  }
+}
+
+// Client code
+const openGL = new OpenGLRenderer();
+const directX = new DirectXRenderer();
+
+const circle = new Circle(openGL);
+console.log(circle.draw()); // Output: Rendering Circle using OpenGL
+
+const square = new Square(directX);
+console.log(square.draw()); // Output: Rendering Square using DirectX
+```
+
+In this example, the Bridge pattern decouples the `Shape` abstraction from the `Renderer` implementation, allowing new shapes or renderers to be added independently.
+
+---
+
+## Conclusion
+
+The Factory, Abstract Factory, Facade, and Bridge patterns are powerful tools for managing complexity in TypeScript applications. The Factory and Abstract Factory patterns streamline object creation, with the former focusing on single-class creation and the latter handling families of related objects. The Facade pattern simplifies interactions with complex subsystems, while the Bridge pattern decouples abstraction and implementation for greater flexibility.
+
+By applying these patterns with the provided examples, developers can create systems that are easier to maintain, extend, and scale. Whether you're building a small application or a large enterprise system, understanding these design patterns will help you write cleaner, more robust TypeScript code.
+
+---
+
+## References
+
+1. [Factory Method Pattern](https://refactoring.guru/design-patterns/factory-method)
+2. [Abstract Factory Pattern](https://refactoring.guru/design-patterns/abstract-factory)
+3. [Structural Patterns](https://refactoring.guru/design-patterns/structural-patterns)
+4. [Facade Pattern](https://refactoring.guru/design-patterns/facade)
+5. [Bridge Pattern](https://refactoring.guru/design-patterns/bridge)

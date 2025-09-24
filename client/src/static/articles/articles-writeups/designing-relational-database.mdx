@@ -1,0 +1,154 @@
+---
+title: "Database Design Notes: Keys, Dependencies, and Normalization"
+publishedAt: "2025-01-09"
+summary: "An informal guide to core database design terminologies, dependencies, normalization, and best practices."
+category: "database"
+---
+
+This post is a collection of notes and explanations on relational database design. It covers terminologies, redundancy, dependencies, normalization forms, and some best practices for naming conventions.
+
+---
+
+## Terminologies
+
+**Column, Fields, Attributes**  
+In relational databases, these terms often mean the same thing. A column defines the type of data stored (e.g., `name`, `email`, `dob`).
+
+**Row, Record, Tuples**  
+Each row (or record) represents a single instance of data. In relational theory, rows are called tuples.
+
+**Primary Key**  
+A primary key is the minimum number of columns required to uniquely identify each record in a table.
+
+**Candidate Keys**  
+Candidate keys are all the possible attributes (or combinations) that can qualify as a primary key.
+
+**Foreign Keys**  
+A foreign key is an attribute that creates a link between two tables, enforcing referential integrity.
+
+**Referential Integrity**  
+This ensures that a foreign key value always refers to an existing, valid record in the referenced table.
+
+**Bridge Table (Joining/Linking Table)**  
+A bridge table is used to eliminate many-to-many relationships. It connects two tables by breaking the M:N relationship into two 1:M relationships.
+
+**Composite Primary Key**  
+A primary key made up of multiple columns. Often used in bridge tables but avoided in final designs because each part of the composite key is usually a foreign key.
+
+**Entities**  
+Entities represent real-world objects, concepts, or events stored in a database.
+
+**Cardinality**  
+Cardinality defines the numerical relationships between entities: one-to-one (1:1), one-to-many (1:M), or many-to-many (M:N).
+
+**Relationship Types**  
+- 1:1 - Rare in real-world databases, double-check if you encounter it.  
+- 1:M - Common, e.g., one customer can have many orders.  
+- M:N - Cannot exist directly and must be resolved with a bridge table.
+
+**Relationship Schema**  
+Defines how entities and their relationships are represented in the database structure.
+
+**Analyzing Relationships**  
+To figure out relationships, analyze one entity at a time and how it connects to the other. For example:  
+- Each invoice can have many products.  
+- Each product can appear in many invoices.  
+This is an M:N relationship, which must be broken down using a bridging table.
+
+**Dependencies**  
+- **Partial Dependency** - When a non-key attribute depends on part of a composite primary key.  
+- **Transitive Dependency** - When a non-key attribute depends on another non-key attribute.  
+
+**Other Rules**  
+- Tables that use a single-column key are already in 2NF.  
+- Tables should be designed vertically, not horizontally.  
+- Calculated columns should not be stored in the database.  
+- Always consider cases where attributes can have multiple values (e.g., hotel rooms in a reservation system).
+
+---
+
+## Redundancy
+
+Redundancy occurs when data is unnecessarily repeated across records or tables. This usually appears in unnormalized databases and leads to:  
+- Data inconsistency  
+- Higher storage requirements  
+- Data corruption risk  
+
+**Example**: If customer data is stored with every product they purchase, changes in the customer's information might not propagate correctly across all entries.  
+
+Normalization is the primary way to prevent redundancy. However, intentional redundancy (denormalization) can sometimes be used to improve query performance.
+
+---
+
+## Dependencies
+
+Dependencies are the foundation of normalization.
+
+**1NF to 2NF Conversion**  
+To identify dependencies, ask: _Which attributes are required to determine all other attributes in a table?_  
+
+Example: If `Room Number` and `Reservation Number` together determine all other attributes, they form the dependency in that tuple.
+
+**Partial Dependency**  
+If `Actual Room Rate` depends only on part of a composite key, it must be placed in a separate table.
+
+---
+
+## Repeating Groups
+
+Repeating groups occur when a table allows multiple values for the same field.  
+
+Example: A book table with multiple authors stored in a single column. This violates atomicity. Each author should instead be stored in a separate row in an associated table.
+
+---
+
+## Naming Conventions
+
+- Use a common prefix for table names (e.g., `tblProduct`, `tblUser`, `tblInvoice`).  
+- Table names don't have to be plural (`Product` instead of `Products` is fine).  
+- Avoid reserved keywords for column names. To solve naming conflicts, prefix columns with the table name. Example: `invoiceID`, `invoiceDate`.  
+- Always start database, table, and column names with a letter.  
+- Do not use business data as a primary key. Instead, use randomly generated UIDs as stable identifiers.
+
+---
+
+## Normal Forms
+
+### First Normal Form (1NF)
+- Each column must contain atomic values.  
+- No repeating groups.  
+- All values in a column must be of the same type.  
+- Each column name must be unique.  
+- No duplicate rows.  
+
+### Second Normal Form (2NF)
+- Must satisfy 1NF.  
+- Remove partial dependencies.  
+- All non-key attributes must depend on the full primary key.  
+
+### Third Normal Form (3NF)
+- Must satisfy 2NF.  
+- No transitive dependencies (non-key attributes should not depend on other non-key attributes).  
+
+---
+
+## Atomicity in Database Design
+
+Atomicity means ensuring each column contains the smallest, indivisible piece of information.  
+
+**Example**:  
+- A full name column should be split into `firstName` and `lastName`.  
+- This allows updates to each independently.  
+
+The goal of atomicity is not grouping attributes that might change together, but ensuring each attribute represents one logical unit of data.
+
+---
+
+## Key Takeaway
+
+Database design is about:  
+1. Identifying entities and relationships.  
+2. Breaking down relationships into valid structures (eliminating M:N).  
+3. Applying normalization to reduce redundancy and dependencies.  
+4. Using proper naming conventions for clarity and maintainability.  
+5. Designing for flexibility, scalability, and integrity.  

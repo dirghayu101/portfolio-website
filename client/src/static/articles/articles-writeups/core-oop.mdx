@@ -1,0 +1,107 @@
+---
+title: "Programming Paradigms and Core OOP Concepts Explained"
+publishedAt: "2025-06-12"
+summary: "A breakdown of different programming paradigms and the key principles of object-oriented programming, including abstraction, encapsulation, and polymorphism."
+category: "design-patterns"
+---
+
+# Programming Paradigms
+
+Programming paradigms are ways of thinking about and structuring code. Each paradigm provides a different lens through which developers can approach problem-solving. Below are the major paradigms and their core principles:
+
+## Object-Oriented Programming (OOP)
+
+Object-Oriented Programming is a paradigm that organizes code around **objects**—instances of classes that combine both data and behavior. It is built on four pillars: **abstraction, encapsulation, inheritance, and polymorphism.**  
+This paradigm promotes **reusability, modularity, and maintainability.**
+
+Examples of OOP languages: **Java, C#, C++, Python.**
+
+---
+
+## Concurrent Programming
+
+Concurrent programming focuses on executing multiple tasks at the same time. This can mean breaking down a large task into smaller subtasks that run concurrently, or managing several independent tasks in parallel.  
+
+Key considerations include **synchronization, communication between tasks, and avoiding race conditions.**
+
+Examples of languages that support concurrency: **Go, Rust, Java.**
+
+---
+
+## Event-Driven Programming
+
+In event-driven programming, the flow of the application is controlled by **events**—such as user clicks, sensor readings, or messages. Developers define **event handlers** that trigger when a specific event occurs.  
+
+This paradigm is common in **GUIs, real-time systems, and serverless computing.**
+
+Examples: **JavaScript, Node.js, Python's Twisted.**
+
+---
+
+## Logic Programming
+
+Logic programming is based on **formal logic**. A program consists of **facts and rules** about a domain. The interpreter applies inference rules to answer queries, effectively proving them.  
+
+Examples: **Prolog, Mercury.**
+
+---
+
+## Functional Programming
+
+Functional programming treats computation as evaluating **pure functions** with no side effects. It emphasizes **immutability**, **higher-order functions**, and **referential transparency.**  
+
+The result is more predictable, composable, and easier-to-debug programs.
+
+Examples: **Haskell, Lisp, Erlang, Clojure.**
+
+---
+
+## Procedural Programming
+
+Procedural programming is one of the oldest paradigms. It structures code into **procedures (functions, routines, subroutines)**, emphasizing the **explicit sequence of steps** required to solve a problem.  
+
+Common constructs include **loops, conditionals, and variables.**
+
+Examples: **C, Pascal, Fortran.**
+
+---
+
+# Core OOP Principles
+
+While many paradigms exist, OOP remains dominant in enterprise and application development. Let's look deeper at three of its key principles: **abstraction, encapsulation, and polymorphism.**
+
+---
+
+## Abstraction
+
+Abstraction hides **implementation details** and exposes only the essential functionality. It allows developers to think in terms of **what a component does** rather than **how it does it.**
+
+In TypeScript:  
+- **Classes** define blueprints for creating objects.  
+- **Interfaces** define contracts that classes must adhere to.
+
+This reduces complexity and makes systems more extensible.
+
+---
+
+## Encapsulation
+
+Encapsulation bundles **data (attributes)** and **methods (behaviors)** into a single unit, typically a class.  
+
+- Internal state is protected from direct external access.  
+- Data access and modification are controlled through **getters and setters**.  
+- It ensures **data integrity** and provides a clear **API surface** for interaction.  
+
+Encapsulation is not just hiding data—it's about **bundling related state and behavior together.**
+
+---
+
+## Polymorphism
+
+Polymorphism allows objects of different classes to be treated as objects of a **common superclass.** This makes code more flexible and extensible.
+
+In TypeScript:  
+- **Abstract classes** can define shared state or functionality.  
+- **Interfaces** act as contracts but cannot store behavior or state.  
+
+A well-designed abstract class reduces code duplication, while interfaces enforce consistency without dictating implementation.

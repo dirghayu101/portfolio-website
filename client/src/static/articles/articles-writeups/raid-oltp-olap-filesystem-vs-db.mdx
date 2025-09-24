@@ -1,0 +1,110 @@
+---
+title: "Database Concepts: SQL Operators, RAID, OLTP vs OLAP, and more"
+publishedAt: "2025-01-08"
+summary: "Notes on SQL operator precedence, RAID fundamentals, transactional vs analytical databases, and the difference between DBMS and filesystems."
+category: "database"
+---
+
+## Logical Operator Precedence in SQL
+
+The **AND operator** returns true only if all conditions are true, and it takes precedence over OR when both appear in the same statement.  
+
+Because precedence can be confusing in complex queries, the safest practice is to **always use parentheses** to explicitly define the intended order of evaluation.  
+
+**Handling NULL values** is another common pitfall. SQL doesn’t treat `NULL = NULL` as true; instead, use the `IS NULL` or `IS NOT NULL` operators.  
+
+When **combining multiple conditions**, be intentional with structure. A misplaced condition or missing set of parentheses can completely change the query outcome.
+
+---
+
+## RAID (Redundant Array of Inexpensive Disks)
+
+RAID is a method of combining multiple physical disks into a single logical unit to improve performance, fault tolerance, or both.
+
+**Mirroring**  
+RAID 1 uses mirroring, where data is written to two disks at once. If one disk fails, the other continues operating with a full copy of the data.
+
+**Parity Bits**  
+Parity is an error-detection technique where an extra bit is added to a string of data. This allows the system to detect (and sometimes correct) errors in transmission or storage.
+
+**Storage Virtualization**  
+Storage virtualization presents a logical view of storage resources. Instead of treating each physical disk separately, all storage media across the system are combined into a single logical pool.
+
+**Data Redundancy**  
+Redundancy ensures error correction is possible. Sometimes this means storing a full copy of data, other times only select pieces that allow reconstruction if something is lost.
+
+**Fault Tolerance**  
+Fault tolerance means the system continues functioning properly even if one or more components fail. RAID provides this to varying degrees depending on the configuration.
+
+**Data Striping**  
+Striping splits sequential data (like a file) into chunks and spreads them across multiple disks. This allows concurrent access and increases throughput.  
+
+For example, a 4-block file split across 3 disks can be accessed faster because multiple disks work in parallel.
+
+**Disadvantage of Striping**  
+If one disk fails, the entire data set may be lost because pieces of the file are spread across all disks. This is why striping is often combined with redundancy techniques like parity or mirroring.
+
+---
+
+## Transactional vs Analytical Databases
+
+Databases broadly fall into two categories: **Transactional (OLTP)** and **Analytical (OLAP).**
+
+### Transactional Databases (OLTP)
+- Optimized for **fast reads and writes** of individual rows.  
+- Designed to handle **real-time transactions** such as online purchases, bank transfers, and reservations.  
+- Follow **ACID properties** (Atomicity, Consistency, Isolation, Durability).  
+- Typically use a **normalized data structure** to eliminate redundancy and ensure data integrity.  
+- Common in production systems where data must be reliable and up to date.  
+
+### Analytical Databases (OLAP)
+- Optimized for **querying and analysis** of large datasets.  
+- Handle **complex queries** efficiently using indexing, query rewriting, and columnar storage.  
+- Support **data aggregation** and summarization (ETL, OLAP cubes).  
+- Often use **denormalized structures** for performance, trading off some redundancy for speed.  
+- Ideal for business intelligence, reporting, and large-scale data analysis.  
+
+In short: OLTP is for day-to-day operations, OLAP is for insights and analytics.
+
+---
+
+## DBMS vs Filesystem
+
+Both databases and filesystems deal with storing data, but they serve different purposes and come with distinct advantages.
+
+**Files as Databases**  
+At its core, even a database uses files under the hood. SQLite, for example, is a file-based database engine. Chrome uses SQLite extensively. But writing directly to files vs through a DBMS is not the same thing.
+
+**Databases excel when you need:**  
+- A logical storage model separate from physical storage details.  
+- A query language (SQL) to connect, filter, and analyze data.  
+- Declarative integrity constraints (type checking, null checks, referential integrity).  
+- Reduced redundancy through normalization.  
+- **Concurrency management**, so multiple users can read/write without corruption.  
+- ACID guarantees for reliability.  
+- Indexing for efficient lookups.  
+
+**Filesystems are better when:**  
+- You don’t have multiple concurrent users.  
+- Your file formats are fixed and libraries handle them well.  
+- You don’t need to sort, query, or analyze the data in new ways.  
+- You want version control on raw files.  
+- You’re storing large binary content (images, audio, logs).  
+
+**Rule of thumb**:  
+- Use a database when structured queries, reliability, and concurrency matter.  
+- Use a filesystem when you just need raw storage and direct file access.  
+
+---
+
+## Additional Topics (Brief Notes)
+
+**Active Directory in Windows**  
+Active Directory (AD) is Microsoft’s directory service for managing users, computers, and resources within a Windows domain. It centralizes authentication, permissions, and policies, making it essential for enterprise-level security and resource management.
+
+**Functions in Oracle Server**  
+Oracle supports both built-in functions (e.g., string, date, numeric operations) and user-defined functions (UDFs). Functions allow encapsulation of logic that can be reused in SQL queries, PL/SQL code, and stored procedures to simplify database operations.
+
+**Windows Server OS vs Normal Windows OS**  
+- **Windows Server OS** is designed for managing networks, hosting services, running enterprise applications, and supporting multiple users concurrently. It comes with features like Active Directory, Hyper-V, and advanced security.  
+- **Normal Windows OS** (e.g., Windows 11) is designed for personal use, focusing on usability, applications, and desktop environments rather than large-scale system administration.  

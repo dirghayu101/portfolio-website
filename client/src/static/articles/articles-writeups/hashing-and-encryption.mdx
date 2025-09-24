@@ -1,0 +1,140 @@
+---
+title: "Understanding Encryption and Hashing: A Comprehensive Guide"
+publishedAt: "2025-09-12"
+summary: "Explore the fundamentals of encryption and hashing, including types, terminologies, and practical applications like signing and steganography."
+category: "cs-fundamentals"
+---
+
+Encryption and hashing are foundational concepts in cybersecurity, ensuring data security and integrity in various applications. This guide explores the types of encryption, key terminologies, and techniques like signing and steganography, while highlighting the differences between encryption and hashing and their practical uses, such as verifying downloads.
+
+---
+
+## Types of Encryption
+
+Encryption protects data by transforming it into an unreadable format, accessible only with the correct key. It is applied in two primary contexts:
+
+- **At Rest**: Encryption safeguards stored data, such as files on a hard drive or database, preventing unauthorized access.
+- **In Transit**: Encryption secures data as it moves across networks, like during online transactions or email communication, ensuring it remains confidential.
+
+---
+
+## Key Terminologies in Encryption
+
+To understand encryption, it's essential to grasp the following terms:
+
+1. **Plaintext**: The original, readable data before encryption.
+2. **Algorithm**: A mathematical process used to encrypt or decrypt data.
+3. **Key**: A secret piece of information used by the algorithm to perform encryption or decryption.
+4. **Ciphertext**: The unreadable output after plaintext is encrypted.
+
+---
+
+## Symmetric vs. Asymmetric Encryption
+
+Encryption can be categorized into two types based on the keys used:
+
+### Symmetric Encryption
+
+Symmetric encryption uses a single key for both encryption and decryption. It's fast and efficient for large datasets but faces a significant challenge: securely sharing the key. If the key is intercepted during transit or improperly stored, the security of the encrypted data is compromised.
+
+For example, services like AWS Key Management Service (KMS) address this issue by managing keys securely, ensuring they never leave a controlled environment. This minimizes the risk of key exposure.
+
+### Asymmetric Encryption
+
+Asymmetric encryption uses a pair of keys: a public key for encryption and a private key for decryption. The public key can be shared openly, allowing anyone to encrypt data, but only the private key holder can decrypt it. This makes asymmetric encryption ideal for secure data exchange, such as in email encryption or secure web browsing (e.g., HTTPS).
+
+However, asymmetric encryption is computationally intensive, requiring more processing power than symmetric encryption, which can impact performance in resource-constrained environments.
+
+---
+
+## Key Concepts in Encryption
+
+Two important techniques related to encryption are signing and steganography.
+
+### Signing
+
+Signing verifies the authenticity and integrity of data. It ensures that the data comes from a trusted source and hasn't been altered during transit. Here's how it works:
+
+1. The sender hashes the data using a cryptographic hash function, creating a hash digest.
+2. The hash digest is encrypted with the sender's private key, producing a digital signature.
+3. The recipient receives the data, the digital signature, and the sender's public key.
+4. The recipient decrypts the signature with the public key to retrieve the hash digest and independently hashes the received data.
+5. If the two hash digests match, the sender's identity and data integrity are confirmed.
+
+While signing verifies identity and integrity, it does not prevent data interception. Encryption is needed to ensure confidentiality.
+
+### Steganography
+
+Steganography hides the existence of encrypted data, often by embedding it within images, audio, or other files. Unlike encryption, which makes data unreadable, steganography conceals the fact that data is being transmitted, making it harder for attackers to detect.
+
+---
+
+## Hardware Security Modules (HSMs)
+
+A significant challenge in symmetric encryption is securely managing keys, especially when they are replicated across multiple storage media. This increases the risk of theft. Hardware Security Modules (HSMs) address this by performing all cryptographic operations within a secure hardware unit. Private keys are generated, used, and deleted within the HSM, ensuring they never leave the module, thus enhancing security.
+
+---
+
+## Hashing vs. Encryption
+
+While encryption and hashing are both cryptographic techniques, they serve distinct purposes.
+
+### Encryption
+
+Encryption transforms plaintext into ciphertext using a reversible algorithm and a key. It's used to protect data at rest or in transit. However, if an attacker gains access to both the ciphertext and the key, they can decrypt the data, making it less suitable for password storage.
+
+### Hashing
+
+Hashing transforms data into a fixed-length hash value using a one-way function, meaning the original data cannot be derived from the hash. Key characteristics of hashing include:
+
+1. **Unique Outputs**: Different inputs produce different hash values.
+2. **Irreversibility**: The original data cannot be reconstructed from the hash.
+3. **Consistency**: The same input always produces the same hash (unless modified by a salt).
+
+Hashing is ideal for password storage. Instead of storing passwords, systems store their hash values. During authentication, the entered password is hashed and compared to the stored hash, ensuring security even if the database is compromised.
+
+### Collision in Hashing
+
+A collision occurs when two different inputs produce the same hash value. Modern cryptographic hash functions, like SHA-256, are designed to minimize collisions, but they remain a theoretical concern.
+
+---
+
+## Comparing Encryption and Hashing for Passwords
+
+When securing passwords, hashing is preferred over encryption due to its one-way nature. Encrypted passwords can be decrypted if the key is compromised, exposing the original password. Hashed passwords, however, cannot be reversed, making them more secure for authentication purposes.
+
+### Example: Password Storage
+
+When a user sets a password, the system hashes it and stores the hash. During login, the entered password is hashed and compared to the stored hash. This approach ensures that even if attackers access the database, they cannot retrieve the original passwords.
+
+---
+
+## Using Hashing to Verify Downloads
+
+Hashing is widely used to verify the integrity of downloaded files, such as software or firmware updates. The process involves:
+
+1. **Calculating the Hash**: The source computes a hash (e.g., SHA-256) for the file.
+2. **Providing the Hash**: The hash is shared alongside the download link.
+3. **Downloading the File**: The user downloads the file.
+4. **Verifying the Hash**: The user computes the hash of the downloaded file and compares it to the provided hash.
+5. **Confirming Integrity**: If the hashes match, the file is verified as untampered.
+
+A vulnerability in this process is that a malicious source could provide a tampered hash. Digital signatures address this by signing the hash with the source's private key, allowing users to verify its authenticity with the corresponding public key.
+
+---
+
+## Signing a Hash: What It Means
+
+Signing a hash creates a digital signature to verify data authenticity and integrity. The process includes:
+
+1. **Hashing**: The data is hashed to produce a fixed-size hash digest.
+2. **Signing**: The hash is encrypted with the sender's private key, creating a digital signature.
+3. **Verification**: The recipient decrypts the signature with the sender's public key to retrieve the hash and compares it to a hash of the received data.
+
+This ensures the data hasn't been altered and confirms the sender's identity. Signing the hash, rather than the entire data, is efficient because hashes are smaller and fixed in size, reducing computational overhead.
+
+---
+
+## Conclusion
+
+Encryption and hashing are critical tools in cybersecurity, each serving unique purposes. Symmetric and asymmetric encryption protect data at rest and in transit, while techniques like signing and steganography enhance security and privacy. Hashing ensures data integrity and secure password storage, with applications like verifying downloads. By understanding these concepts, developers and users can make informed decisions to safeguard sensitive information in an increasingly connected world.

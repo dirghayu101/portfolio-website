@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
 import rehypePrism from 'rehype-prism-plus';
+import remarkGfm from "remark-gfm";
 
 function CustomLink(props: any) {
   const href = props.href;
@@ -37,6 +38,7 @@ export function CustomMDX(props: any) {
         options={{
           mdxOptions: {
             rehypePlugins: [rehypePrism],
+            remarkPlugins: [remarkGfm],
           },
         }}
       />

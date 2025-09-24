@@ -1,0 +1,208 @@
+---
+title: "Understanding Pages, Extents, Log Files, and Backup Strategies in Databases"
+publishedAt: "2025-03-24"
+summary: "A deep dive into SQL Server storage structures, overflow considerations, transaction logs, and practical backup/restore strategies."
+category: "database"
+---
+
+## Pages, Extents, and Log Files
+
+### Pages
+
+In SQL Server, all data is stored in **data pages**. Each page is **8 KB in size** and this size is fixed.  
+
+A page contains the actual row data. This design introduces a few important implications:
+
+- If a data row is **4,100 bytes long**, only a single row will fit on a page. The rest of the page (3,960 bytes) is wasted since rows cannot share a page once one has claimed it.  
+- A row of a table **cannot be split across multiple data pages**. If a row exceeds **8,060 bytes**, it is stored on an **overflow page**, but still: a single value cannot exceed the page size.
+
+#### Types of Pages
+
+- **Data Pages**: Contain actual rows of data.  
+- **Text/Image Pages**: Store special large object (LOB) data.  
+- **Index Pages**: Contain references for locating rows of data.  
+- **System Pages**: Store metadata about database organization.  
+- **Overflow Pages**: Used when a row exceeds 8,060 bytes.  
+
+When you query data, SQL Server doesn’t fetch just the row—it **loads the entire 8 KB page** and then locates the row within that page.
+
+---
+
+#### Optimizing Storage
+
+Out of the 8,192 bytes on a page, only about **8,060 bytes are available** to users.  
+
+One aspect of database optimization is to **design data types efficiently**, so you can fit as many rows as possible per page.  
+
+For example:  
+
+```sql
+-- Two large varchar columns can exceed page size
+CREATE TABLE ExampleTable (
+  col1 VARCHAR(7000),
+  col2 VARCHAR(2000)
+);
+```
+
+Individually, neither column exceeds the 8,060-byte limit, but combined they may overflow. In such cases, SQL Server may store the variable-length column (`varchar(7000)`) in a **ROW\_OVERFLOW\_DATA allocation unit**.
+
+---
+
+### Data Page Overflow Considerations
+
+1. **Dynamic Record Movement**
+   When records grow beyond the current page size (e.g., after an update), they are moved to a new page. If they later shrink, they may move back.
+
+2. **Performance Impact**
+   Queries, sorts, and joins on large overflow records are slower since overflow data must be fetched synchronously.
+
+3. **Column Length Limits**
+   Columns like `varchar`, `nvarchar`, `varbinary`, or `sql_variant` must each be ≤ 8,000 bytes, but their **combined row length** may exceed 8,060 bytes (pushing data to overflow).
+
+4. **Fixed vs LOB Columns**
+   `char` and `nchar` values must always fit within 8,060 bytes. LOB data types (`text`, `image`, etc.) are stored separately and don’t count toward this limit.
+
+5. **Clustered Index Limitations**
+   Clustered indexes cannot use `varchar` columns that store data in `ROW_OVERFLOW_DATA`. Inserts/updates may fail if the column spills into overflow.
+
+6. **Non-clustered Indexes**
+   Non-clustered indexes can include columns with overflow data, making them more flexible for indexing strategies.
+
+---
+
+### Extents
+
+> **TBD**: Extents are collections of 8 contiguous pages (64 KB). They are the next logical storage unit above pages. This section will be expanded with allocation details and examples.
+
+---
+
+### Log Files
+
+Every action performed in the database is first recorded in **transaction log files** before being applied to data pages.
+
+Key facts about log files:
+
+* Log files are **binary** and cannot be read in a text editor.
+* The operating system always writes to the **log first** before updating the actual database.
+* Unlike data, log files do **not use pages** and are written sequentially.
+
+This ensures durability and consistency: even if a crash happens mid-operation, logs help recover to a consistent state.
+
+---
+
+## Backup and Restore Strategies
+
+Database backups work at the **page level**, not just by copying raw files. A robust backup plan balances performance, data safety, and recovery time.
+
+When designing backups, also consider:
+
+* The acceptable amount of data loss your company can tolerate.
+* How to prioritize actions in case of deadlocks or disasters.
+
+---
+
+### Types of Backups
+
+1. **Full Backup**
+
+   * A complete copy of the database at a given time.
+   * Cannot be done by simply copying `.mdf` and `.ldf` files—must use the `BACKUP DATABASE` command.
+   * ⚠️ Restoring a full backup will overwrite changes made since that backup.
+
+```sql
+BACKUP DATABASE [AdventureWorks2012]
+TO DISK = 'G:\SQL Backup\AdventureWorks.bak'
+WITH INIT;
+```
+
+For performance, backups can be split across multiple files:
+
+```sql
+BACKUP DATABASE [AdventureWorks2012]
+TO DISK = 'G:\SQL Backup\AW_1.bak',
+   DISK = 'H:\SQL Backup\AW_2.bak',
+   DISK = 'I:\SQL Backup\AW_3.bak'
+WITH INIT;
+```
+
+---
+
+#### Restoring a Full Backup
+
+```sql
+RESTORE DATABASE [AdventureWorks2012]
+FROM DISK = 'G:\SQL Backup\AdventureWorks.bak'
+WITH REPLACE;
+```
+
+Options when restoring:
+
+| Option           | Description|
+|------------------|----------------------------------------------|
+| `WITH REPLACE`   | Overwrites an existing database with the backup. |
+| `WITH NORECOVERY`| Keeps the database in restoring state (for sequential restores).   |
+| `WITH RECOVERY`  | Completes restore and brings the database online for access.|
+
+---
+
+2. **Differential Backup**
+
+   * Captures all changes since the last full backup.
+   * Grows larger and takes longer the further it is from the last full backup.
+
+```sql
+BACKUP DATABASE [AdventureWorks2012]
+TO DISK = 'G:\SQL Backup\AdventureWorks-Diff.bak'
+WITH DIFFERENTIAL, INIT;
+```
+
+To restore:
+
+* Restore the last full backup with `NORECOVERY`.
+* Restore the latest differential backup with `RECOVERY`.
+
+---
+
+3. **Transaction Log Backup**
+
+   * Captures every transaction and modification since the last log backup.
+   * Enables **point-in-time recovery**.
+   * Transaction logs keep growing until a log backup is performed.
+
+```sql
+BACKUP LOG [AdventureWorks2012]
+TO DISK = 'G:\SQL Backup\AdventureWorks-trn.bak'
+WITH INIT;
+```
+
+⚠️ **Considerations**:
+
+* Frequent log backups reduce data loss risk.
+* Too many small log backups increase restore complexity.
+* The right balance depends on change rate and business tolerance for data loss.
+
+---
+
+### Putting It All Together
+
+A practical backup schedule might look like this:
+
+* **Weekly full backups** (e.g., Sunday).
+* **Daily differential backups**.
+* **Transaction log backups every 15 minutes**.
+
+This way:
+
+* Full backups keep size manageable.
+* Differentials reduce restore chains.
+* Frequent log backups minimize data loss.
+
+---
+
+## Final Thoughts
+
+Understanding how SQL Server stores data (pages, extents, overflow) and how log files operate is key to building efficient, recoverable systems.
+
+Equally important is designing a **backup and restore strategy** that balances cost, complexity, and risk tolerance.
+
+By carefully planning page usage, monitoring row-overflow performance, and implementing layered backups, you can ensure both high performance and resilience in production.

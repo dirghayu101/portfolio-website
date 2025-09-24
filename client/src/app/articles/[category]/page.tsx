@@ -17,15 +17,28 @@ export async function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { category: string } }) {
   let { category } = params;
+  if (category === "cs-fundamentals") {
+    category = "CS Fundamentals";
+  } else {
+    category = category.toLocaleUpperCase();
+  }
 
   return {
-    title: category.toLocaleUpperCase(),
+    title: category,
     description: `All articles regarding ${category}`,
   };
 }
 
 export default function Home({ params }: { params: { category: string } }) {
   const allPosts = getArticlesMetadata();
+
+  let category = params.category;
+  if (category === "cs-fundamentals") {
+    category = "CS Fundamentals";
+  } else {
+    category = category.toLocaleUpperCase();
+  }
+
   let posts = allPosts
     .filter((post) => post.metadata.category === params.category)
     .sort(
@@ -48,11 +61,8 @@ export default function Home({ params }: { params: { category: string } }) {
   return (
     <div className="min-h-screen">
       <ArticlePageHeader
-        heading={posts[0]?.category}
-        description={`All articles regarding ${
-          posts[0]?.category.charAt(0).toUpperCase() +
-          posts[0]?.category.slice(1)
-        }.`}
+        heading={category}
+        description={`All articles regarding ${category}.`}
       />
       <ArticleSectionContainer>
         <ArticleListDescriptive posts={posts} />

@@ -1,0 +1,164 @@
+---
+title: "Understanding SOLID Principles in Software Design"
+publishedAt: "2025-07-20"
+summary: "A practical guide to the five SOLID principles— SRP, OCP, LSP, ISP, and DIP—explained with examples and code."
+category: "design-patterns"
+---
+
+The **SOLID principles** are five key guidelines in object-oriented programming and software design that make codebases more **maintainable, scalable, and flexible**. They serve as a foundation for writing clean code that adapts well to change.
+
+The acronym stands for:
+
+- **S**: Single Responsibility Principle (SRP)  
+- **O**: Open-Closed Principle (OCP)  
+- **L**: Liskov Substitution Principle (LSP)  
+- **I**: Interface Segregation Principle (ISP)  
+- **D**: Dependency Inversion Principle (DIP)  
+
+Let's break each down.
+
+---
+
+## Single Responsibility Principle (SRP)
+
+> A class should have one, and only one, reason to change.
+
+If a class takes on multiple responsibilities, a change in one area might unintentionally affect the other. By limiting a class to one responsibility, you isolate change and keep the system easier to maintain.
+
+### Benefits
+- Easier to test and debug.  
+- Code is more **readable**—each class has a clear purpose.  
+- Changes in one concern don't cascade into others.  
+
+### Example
+
+A `User` class handling both **user data management** and **authentication** violates SRP.  
+Instead, separate them into `UserProfile` and `UserAuth` classes. This way, changing authentication logic doesn't risk breaking profile-related logic.
+
+---
+
+## Open-Closed Principle (OCP)
+
+> Software entities should be open for extension but closed for modification.
+
+This principle emphasizes that you should be able to **extend behavior** without altering existing, tested code. Modifying core logic increases the chance of introducing bugs.
+
+### Benefits
+- Stable, tested code remains untouched.  
+- New features are added without regressions.  
+- Promotes scalability and flexibility.  
+
+### Example
+
+#### Violates OCP (using if-else):
+
+```ts
+class Discount {
+  giveDiscount(customer: Customer): number {
+    if (customer.type === "Regular") {
+      return 10;
+    } else if (customer.type === "Premium") {
+      return 20;
+    } else if (customer.type === "Gold") {
+      return 30;
+    }
+    return 0;
+  }
+}
+````
+
+Every new customer type requires modifying this class.
+
+#### Follows OCP (using polymorphism):
+
+```ts
+interface Customer {
+  giveDiscount(): number;
+}
+
+class RegularCustomer implements Customer {
+  giveDiscount(): number {
+    return 10;
+  }
+}
+
+class PremiumCustomer implements Customer {
+  giveDiscount(): number {
+    return 20;
+  }
+}
+
+class Discount {
+  giveDiscount(customer: Customer): number {
+    return customer.giveDiscount();
+  }
+}
+```
+
+Now, adding a `GoldCustomer` requires creating a new class—no modifications to `Discount`.
+
+👉 For a deeper dive, see [this example](https://cloudaffle.com/series/solid-design-principles/open-closed-principle/).
+
+---
+
+## Liskov Substitution Principle (LSP)
+
+> Subtypes must be substitutable for their base types.
+
+If class `S` is a subtype of class `T`, then objects of type `T` should be replaceable with objects of type `S` **without breaking the program.**
+
+### Why It Matters
+
+* Prevents violations of expected behavior.
+* Keeps inheritance hierarchies **safe and predictable**.
+
+Example resources:
+
+* [LinkedIn article](https://www.linkedin.com/pulse/liskov-substitution-principle-lsp-frontend-prithveesh-goel/)
+* [Stack Overflow discussion](https://stackoverflow.com/questions/56860/what-is-an-example-of-the-liskov-substitution-principle)
+* [Cloudaffle guide](https://cloudaffle.com/series/solid-design-principles/liskov-substitution-principle/)
+
+---
+
+## Interface Segregation Principle (ISP)
+
+> Clients should not be forced to depend on methods they do not use.
+
+Large, “fat” interfaces make implementing classes unnecessarily complex. Instead, **split big interfaces into smaller, role-specific ones.**
+
+### Benefits
+
+* Reduces coupling.
+* Easier to refactor.
+* Classes only implement what they need.
+
+These smaller interfaces are often called **role interfaces** because they capture a specific role rather than everything at once.
+
+---
+
+## Dependency Inversion Principle (DIP)
+
+> High-level modules should not depend on low-level modules. Both should depend on abstractions.
+> Abstractions should not depend on details. Details should depend on abstractions.
+
+### What It Means
+
+* Business logic (high-level modules) should not directly depend on infrastructure or utilities (low-level modules).
+* Both should communicate through **interfaces or abstractions.**
+* This makes swapping implementations (e.g., changing from MySQL to PostgreSQL) much easier.
+
+👉 Detailed breakdown: [Cloudaffle guide](https://cloudaffle.com/series/solid-design-principles/dependency-inversion-principle/)
+
+---
+
+# Wrapping Up
+
+The SOLID principles may seem abstract at first, but they boil down to **reducing coupling, increasing cohesion, and making change safe.**
+
+* **SRP**: One responsibility per class.
+* **OCP**: Extend without modifying.
+* **LSP**: Subtypes should be safe replacements.
+* **ISP**: Small, specific interfaces.
+* **DIP**: Depend on abstractions, not implementations.
+
+By following these principles, you not only write **cleaner, more modular code**, but also prepare your system to handle growth and inevitable change with minimal pain.

@@ -1,0 +1,78 @@
+---
+title: "Understanding Cloud Service Models: IaaS, PaaS, and SaaS"
+publishedAt: "2025-02-02"
+summary: "A comprehensive guide to the three main cloud service models: Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS). Learn their differences, use cases, and benefits."
+category: devops
+---
+
+When a new company starts deploying from scratch, it's often advantageous to begin with **Platform as a Service (PaaS)**. This allows developers to focus on building applications rather than worrying about servers or infrastructure.  
+
+On the other hand, when comparing major cloud providers:  
+- **Azure** is often considered stronger in **Infrastructure as a Service (IaaS)**.  
+- **AWS** is often considered stronger in **Platform as a Service (PaaS)**.  
+
+Applications that customers directly use fall under **Software as a Service (SaaS)**—think Gmail, Office 365, or Discord.
+
+---
+
+## Infrastructure as a Service (IaaS)
+
+In the **IaaS model**, you request the hardware resources you need, and they are provisioned and managed for you.  
+
+For example:  
+If you ask for a virtual machine with **4 vCPUs, 16 GB of RAM, and 250 GB SSD storage**, you'll get exactly that. From there, it's your responsibility to install, configure, and maintain everything from the operating system upward.
+
+### Key Characteristics
+- Provides **hardware resources** such as servers, CPUs, memory, storage, and networking.  
+- Full control is given to the customer to install their own OS, middleware, and applications.  
+- From a company's perspective, it feels almost like migrating to a new physical server.  
+
+### Typical Use Cases
+- **Enterprises with existing on-premises infrastructure** often start with IaaS when moving to the cloud. It allows them to replicate their setup with minimal changes.  
+- **Development and testing environments** also benefit from IaaS. For example, developers can quickly spin up virtual machines to test apps on environments similar to what clients might use.  
+
+---
+
+## Platform as a Service (PaaS)
+
+With **PaaS**, developers don't worry about the infrastructure. They simply write code, upload it, and let the platform handle the rest.  
+
+You're responsible for your **application code and data**, but everything else—operating system, middleware, runtime, and scaling—is handled by the provider.
+
+### Key Features
+- Supports multiple runtimes, from **web servers** and **SQL databases** to **container platforms** like Docker.  
+- Providers offer dozens of available environments: Python, C#, Node.js, Java, and more.  
+- Includes **operating systems, middleware (like VS Code, SQL Server, Firefox), and runtime environments**.  
+
+### Why PaaS?
+This is especially advantageous for **startups** and teams building cloud-native apps from scratch. Instead of spending time configuring infrastructure, developers can focus on coding and delivering value faster.  
+
+---
+
+## Software as a Service (SaaS)
+
+**SaaS** is the model most people are already familiar with. The application is fully built and hosted by the provider. As a user, you simply log in and start using it.  
+
+### Examples
+- **Office 365** for productivity tools  
+- **Gmail** for email  
+- **Discord** for communication  
+
+From a company's perspective, SaaS is purchased as a subscription or contract. For example, for corporate email, a business might pay Microsoft for Office 365. All the setup, storage, and maintenance is Microsoft's responsibility—the company only needs to provide account details.
+
+### Benefits
+- No infrastructure management.  
+- Quick onboarding and scalability.  
+- Predictable subscription-based pricing.  
+
+---
+
+# Wrapping Up
+
+Understanding **IaaS, PaaS, and SaaS** is critical for making the right cloud strategy decisions:  
+
+- **IaaS** offers maximum control, ideal for enterprises migrating from on-premises.  
+- **PaaS** accelerates development by abstracting infrastructure, making it perfect for startups.  
+- **SaaS** delivers ready-to-use software with minimal setup, great for end users and businesses alike.  
+
+Each has its place, and most organizations use a mix depending on their goals.  

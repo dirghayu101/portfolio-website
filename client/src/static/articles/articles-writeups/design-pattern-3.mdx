@@ -1,0 +1,556 @@
+---
+title: "Mastering Observer, Iterator, Strategy, Template Method, Command, State, and Chain of Responsibility Patterns in TypeScript"
+publishedAt: "2025-09-05"
+summary: "A comprehensive guide to understanding key behavioral design patterns in TypeScript, including Observer, Iterator, Strategy, Template Method, Command, State, and Chain of Responsibility, with practical code examples."
+category: "design-patterns"
+---
+
+## Behavioral Design Patterns in TypeScript
+
+Behavioral design patterns focus on improving communication and responsibility distribution between objects to create efficient, maintainable, and scalable systems. In TypeScript, patterns like Observer, Iterator, Strategy, Template Method, Command, State, and Chain of Responsibility provide robust solutions for managing complex interactions. This article explores these patterns, their applications, and includes TypeScript examples to demonstrate their implementation.
+
+---
+
+## Observer Pattern (Behavioral Design Pattern)
+
+The Observer pattern facilitates a one-to-many dependency between objects, where a subject (or publisher) notifies its observers (or subscribers) of state changes. This pattern is ideal for scenarios where changes in one object’s state need to trigger updates in others, such as in event-driven systems or user interfaces.
+
+The pattern consists of a `Subject` interface for managing observers and state, and an `Observer` interface for receiving updates. The subject maintains a list of observers and notifies them when its state changes, allowing loose coupling since the subject doesn’t need to know the details of its observers. However, care must be taken to avoid memory leaks by removing unused observers and to manage over-notification.
+
+---
+
+### Example: Stock Price Monitoring
+
+Below is a TypeScript example of the Observer pattern for monitoring stock price changes:
+
+```typescript
+interface Observer {
+  update(subject: Subject): void;
+}
+
+interface Subject {
+  addObserver(observer: Observer): void;
+  removeObserver(observer: Observer): void;
+  notifyObservers(): void;
+  getState(): number;
+  setState(state: number): void;
+}
+
+class Stock implements Subject {
+  private observers: Observer[] = [];
+  private price: number = 0;
+
+  addObserver(observer: Observer): void {
+    this.observers.push(observer);
+  }
+
+  removeObserver(observer: Observer): void {
+    this.observers = this.observers.filter(obs => obs !== observer);
+  }
+
+  notifyObservers(): void {
+    this.observers.forEach(observer => observer.update(this));
+  }
+
+  getState(): number {
+    return this.price;
+  }
+
+  setState(price: number): void {
+    this.price = price;
+    this.notifyObservers();
+  }
+}
+
+class Trader implements Observer {
+  private name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  update(subject: Subject): void {
+    console.log(`${this.name} notified: Stock price is now ${subject.getState()}`);
+  }
+}
+
+// Client code
+const stock = new Stock();
+const trader1 = new Trader("Alice");
+const trader2 = new Trader("Bob");
+stock.addObserver(trader1);
+stock.addObserver(trader2);
+stock.setState(100);
+// Output: Alice notified: Stock price is now 100
+//         Bob notified: Stock price is now 100
+stock.removeObserver(trader1);
+stock.setState(150);
+// Output: Bob notified: Stock price is now 150
+```
+
+This example shows how traders are notified of stock price changes, demonstrating loose coupling and dynamic subscription management.
+
+---
+
+## Iterator Pattern (Behavioral Design Pattern)
+
+The Iterator pattern provides a way to sequentially access elements in a collection without exposing its internal structure. This is useful for traversing complex data structures like trees or graphs, abstracting away their complexity.
+
+The pattern extracts traversal logic into a separate `Iterator` object, allowing multiple traversal methods (e.g., depth-first, breadth-first) without modifying the collection. In TypeScript, iterators are natively supported via the `Symbol.iterator` interface, but custom iterators can handle specialized cases. A key concern is handling collection changes during iteration, which can lead to unpredictable results.
+
+---
+
+### Example: Binary Tree Traversal
+
+Here’s a TypeScript example of the Iterator pattern for traversing a binary tree:
+
+```typescript
+interface Iterator<T> {
+  hasNext(): boolean;
+  next(): T | null;
+}
+
+interface IterableCollection<T> {
+  createIterator(): Iterator<T>;
+}
+
+class TreeNode {
+  value: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+
+  constructor(value: number) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinaryTree implements IterableCollection<TreeNode> {
+  private root: TreeNode | null;
+
+  constructor(root: TreeNode | null) {
+    this.root = root;
+  }
+
+  createIterator(): Iterator<TreeNode> {
+    return new InOrderIterator(this.root);
+  }
+}
+
+class InOrderIterator implements Iterator<TreeNode> {
+  private stack: TreeNode[] = [];
+
+  constructor(root: TreeNode | null) {
+    this.pushLeftNodes(root);
+  }
+
+  private pushLeftNodes(node: TreeNode | null): void {
+    while (node) {
+      this.stack.push(node);
+      node = node.left;
+    }
+  }
+
+  hasNext(): boolean {
+    return this.stack.length > 0;
+  }
+
+  next(): TreeNode | null {
+    if (!this.hasNext()) return null;
+    const node = this.stack.pop()!;
+    this.pushLeftNodes(node.right);
+    return node;
+  }
+}
+
+// Client code
+const root = new TreeNode(1);
+root.left = new TreeNode(2);
+root.right = new TreeNode(3);
+root.left.left = new TreeNode(4);
+root.left.right = new TreeNode(5);
+
+const tree = new BinaryTree(root);
+const iterator = tree.createIterator();
+while (iterator.hasNext()) {
+  console.log(iterator.next()!.value);
+}
+// Output: 4, 2, 5, 1, 3
+```
+
+This example demonstrates in-order traversal of a binary tree, abstracting the traversal logic into an iterator.
+
+---
+
+## Strategy Pattern (Behavioral Design Pattern)
+
+The Strategy pattern defines a family of interchangeable algorithms, encapsulating each in a separate class. This allows the behavior of an object to be changed at runtime without altering its implementation, promoting the Open/Closed Principle and reducing conditional logic.
+
+The pattern includes a `Context` class that holds a reference to a `Strategy` interface, with `ConcreteStrategy` classes implementing specific algorithms. The client selects the desired strategy, making the context independent of the algorithm details.
+
+---
+
+### Example: Payment Processing
+
+Below is a TypeScript example of the Strategy pattern for different payment methods:
+
+```typescript
+interface PaymentStrategy {
+  pay(amount: number): string;
+}
+
+class CreditCardPayment implements PaymentStrategy {
+  pay(amount: number): string {
+    return `Paid ${amount} using Credit Card`;
+  }
+}
+
+class PayPalPayment implements PaymentStrategy {
+  pay(amount: number): string {
+    return `Paid ${amount} using PayPal`;
+  }
+}
+
+class PaymentContext {
+  private strategy: PaymentStrategy;
+
+  constructor(strategy: PaymentStrategy) {
+    this.strategy = strategy;
+  }
+
+  setStrategy(strategy: PaymentStrategy): void {
+    this.strategy = strategy;
+  }
+
+  processPayment(amount: number): string {
+    return this.strategy.pay(amount);
+  }
+}
+
+// Client code
+const payment = new PaymentContext(new CreditCardPayment());
+console.log(payment.processPayment(100));
+// Output: Paid 100 using Credit Card
+
+payment.setStrategy(new PayPalPayment());
+console.log(payment.processPayment(100));
+// Output: Paid 100 using PayPal
+```
+
+This example shows how the Strategy pattern allows switching between payment methods dynamically.
+
+---
+
+## Template Method Pattern (Behavioral Design Pattern)
+
+The Template Method pattern defines the skeleton of an algorithm in a base class, allowing subclasses to override specific steps without changing the overall structure. This pattern is useful for reducing code duplication and ensuring consistency in algorithms with customizable parts.
+
+While it promotes the Interface Segregation and Dependency Inversion principles, it relies on inheritance, which can lead to tight coupling.
+
+---
+
+### Example: Document Processing
+
+Here’s a TypeScript example of the Template Method pattern for processing documents:
+
+```typescript
+abstract class DocumentProcessor {
+  processDocument(): string {
+    return `${this.readData()}\n${this.processData()}\n${this.saveData()}`;
+  }
+
+  protected abstract readData(): string;
+  protected abstract processData(): string;
+  protected abstract saveData(): string;
+}
+
+class PDFProcessor extends DocumentProcessor {
+  protected readData(): string {
+    return "Reading PDF data";
+  }
+
+  protected processData(): string {
+    return "Processing PDF data";
+  }
+
+  protected saveData(): string {
+    return "Saving PDF data";
+  }
+}
+
+class WordProcessor extends DocumentProcessor {
+  protected readData(): string {
+    return "Reading Word data";
+  }
+
+  protected processData(): string {
+    return "Processing Word data";
+  }
+
+  protected saveData(): string {
+    return "Saving Word data";
+  }
+}
+
+// Client code
+const pdf = new PDFProcessor();
+console.log(pdf.processDocument());
+// Output: Reading PDF data
+//         Processing PDF data
+//         Saving PDF data
+
+const word = new WordProcessor();
+console.log(word.processDocument());
+// Output: Reading Word data
+//         Processing Word data
+//         Saving Word data
+```
+
+This example demonstrates a consistent document processing workflow with customizable steps.
+
+---
+
+## Command Design Pattern (Behavioral Design Pattern)
+
+The Command pattern encapsulates a request as an object, enabling parameterization, queuing, or undoing of operations. It includes a `Command` interface, `ConcreteCommand` classes, a `Receiver` for business logic, and an `Invoker` (or sender) to trigger commands. This pattern is ideal for implementing undo/redo functionality or delayed execution.
+
+---
+
+### Example: Text Editor Commands
+
+Below is a TypeScript example of the Command pattern for a text editor with undo support:
+
+```typescript
+interface Command {
+  execute(): void;
+  undo(): void;
+}
+
+class TextEditor {
+  private content: string = "";
+
+  append(text: string): void {
+    this.content += text;
+  }
+
+  removeLast(length: number): void {
+    this.content = this.content.slice(0, -length);
+  }
+
+  getContent(): string {
+    return this.content;
+  }
+}
+
+class AppendCommand implements Command {
+  private editor: TextEditor;
+  private text: string;
+
+  constructor(editor: TextEditor, text: string) {
+    this.editor = editor;
+    this.text = text;
+  }
+
+  execute(): void {
+    this.editor.append(this.text);
+  }
+
+  undo(): void {
+    this.editor.removeLast(this.text.length);
+  }
+}
+
+class EditorInvoker {
+  private history: Command[] = [];
+
+  executeCommand(command: Command): void {
+    command.execute();
+    this.history.push(command);
+  }
+
+  undo(): void {
+    const command = this.history.pop();
+    if (command) command.undo();
+  }
+}
+
+// Client code
+const editor = new TextEditor();
+const invoker = new EditorInvoker();
+const command1 = new AppendCommand(editor, "Hello");
+const command2 = new AppendCommand(editor, " World");
+
+invoker.executeCommand(command1);
+invoker.executeCommand(command2);
+console.log(editor.getContent()); // Output: Hello World
+invoker.undo();
+console.log(editor.getContent()); // Output: Hello
+```
+
+This example shows how commands encapsulate text operations, enabling undo functionality.
+
+---
+
+## State Design Pattern (Behavioral Design Pattern)
+
+The State pattern allows an object to alter its behavior when its internal state changes, effectively acting like a finite-state machine. It extracts state-specific behaviors into separate classes, reducing complex conditional logic and improving maintainability by adhering to the Single Responsibility and Open/Closed Principles.
+
+Unlike the Strategy pattern, states may be aware of each other to handle transitions.
+
+---
+
+### Example: Traffic Light
+
+Here’s a TypeScript example of the State pattern for a traffic light system:
+
+```typescript
+interface TrafficLightState {
+  switchLight(context: TrafficLight): void;
+}
+
+class RedState implements TrafficLightState {
+  switchLight(context: TrafficLight): void {
+    console.log("Red: Stop");
+    context.setState(new GreenState());
+  }
+}
+
+class GreenState implements TrafficLightState {
+  switchLight(context: TrafficLight): void {
+    console.log("Green: Go");
+    context.setState(new YellowState());
+  }
+}
+
+class YellowState implements TrafficLightState {
+  switchLight(context: TrafficLight): void {
+    console.log("Yellow: Prepare to stop");
+    context.setState(new RedState());
+  }
+}
+
+class TrafficLight {
+  private state: TrafficLightState;
+
+  constructor() {
+    this.state = new RedState();
+  }
+
+  setState(state: TrafficLightState): void {
+    this.state = state;
+  }
+
+  switchLight(): void {
+    this.state.switchLight(this);
+  }
+}
+
+// Client code
+const trafficLight = new TrafficLight();
+trafficLight.switchLight(); // Output: Red: Stop
+trafficLight.switchLight(); // Output: Green: Go
+trafficLight.switchLight(); // Output: Yellow: Prepare to stop
+```
+
+This example demonstrates how the traffic light changes behavior based on its state, with transitions managed by state objects.
+
+---
+
+## Chain of Responsibility Pattern (Behavioral Design Pattern)
+
+The Chain of Responsibility pattern passes a request along a chain of handlers, each deciding whether to process it or pass it to the next handler. This is useful when the handler isn’t predetermined and is determined at runtime, such as in middleware systems.
+
+The pattern relies on handlers implementing a common interface, with each handler linked to the next. A key concern is the dependency on handler order, which may require additional logic to manage.
+
+---
+
+### Example: Request Validation Middleware
+
+Here’s a TypeScript example of the Chain of Responsibility pattern for request validation:
+
+```typescript
+interface Handler {
+  setNext(handler: Handler): Handler;
+  handle(request: string): string | null;
+}
+
+abstract class AbstractHandler implements Handler {
+  private nextHandler: Handler | null = null;
+
+  setNext(handler: Handler): Handler {
+    this.nextHandler = handler;
+    return handler;
+  }
+
+  handle(request: string): string | null {
+    if (this.nextHandler) {
+      return this.nextHandler.handle(request);
+    }
+    return null;
+  }
+}
+
+class SanitizeHandler extends AbstractHandler {
+  handle(request: string): string | null {
+    if (request.includes("<script>")) {
+      return "Invalid request: Contains script tags";
+    }
+    return super.handle(request);
+  }
+}
+
+class RateLimitHandler extends AbstractHandler {
+  handle(request: string): string | null {
+    if (request === "repeated_request") {
+      return "Request blocked: Rate limit exceeded";
+    }
+    return super.handle(request);
+  }
+}
+
+class CacheHandler extends AbstractHandler {
+  handle(request: string): string | null {
+    if (request === "cached_request") {
+      return "Serving cached response";
+    }
+    return super.handle(request);
+  }
+}
+
+// Client code
+const sanitize = new SanitizeHandler();
+const rateLimit = new RateLimitHandler();
+const cache = new CacheHandler();
+
+sanitize.setNext(rateLimit).setNext(cache);
+
+console.log(sanitize.handle("normal_request")); // Output: null
+console.log(sanitize.handle("<script>malicious</script>")); // Output: Invalid request: Contains script tags
+console.log(sanitize.handle("repeated_request")); // Output: Request blocked: Rate limit exceeded
+console.log(sanitize.handle("cached_request")); // Output: Serving cached response
+```
+
+This example shows a chain of middleware handlers validating a request, with each handler processing or passing it along.
+
+---
+
+## Conclusion
+
+The Observer, Iterator, Strategy, Template Method, Command, State, and Chain of Responsibility patterns provide powerful mechanisms for managing object communication and behavior in TypeScript. By applying these patterns with the provided examples, developers can create systems that are more maintainable, scalable, and flexible, whether handling event notifications, traversals, dynamic algorithms, or state transitions.
+
+---
+
+## References
+
+1. [Observer Pattern](https://refactoring.guru/design-patterns/observer)
+2. [Polling Strategies](https://www.geeksforgeeks.org/polling-in-system-design/#polling-strategies)
+3. [Node Starter Project](https://khalilstemmler.com/blogs/typescript/node-starter-project/)
+4. [Iterator Pattern](https://refactoring.guru/design-patterns/iterator)
+5. [Iterator Pattern for Composite](https://refactoring.guru/design-patterns/iterator)
+6. [Strategy Pattern](https://refactoring.guru/design-patterns/strategy)
+7. [Template Method Pattern](https://refactoring.guru/design-patterns/template-method)
+8. [SOLID Principles](https://www.globalnerdy.com/2009/07/15/the-solid-principles-explained-with-motivational-posters/)
+9. [Command Pattern](https://refactoring.guru/design-patterns/command)
+10. [State Pattern](https://refactoring.guru/design-patterns/state)
+11. [Chain of Responsibility Pattern](https://refactoring.guru/design-patterns/chain-of-responsibility)
