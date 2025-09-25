@@ -12,11 +12,11 @@ const hobbyList = [
   {
     title: "Writing",
     emoji: "✍️",
-    left: "5%",
+    left: "15%",
     top: "5%",
   },
   {
-    title: "Meditation",
+    title: "Meditating",
     emoji: "🧘",
     left: "50%",
     top: "5%",
@@ -30,7 +30,7 @@ const hobbyList = [
   {
     title: "Journaling",
     emoji: "📓",
-    left: "10%",
+    left: "5%",
     top: "35%",
   },
   {
@@ -43,7 +43,7 @@ const hobbyList = [
   {
     title: "Fitness",
     emoji: "🏋️",
-    left: "5%",
+    left: "15%",
     top: "65%",
   },
   {

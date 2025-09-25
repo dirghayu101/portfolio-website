@@ -27,6 +27,7 @@ const projects = [
     ],
     link: "https://drive.google.com/file/d/1oMBIHKIvWaGN31YHJi6r3EiSEgBiD71s/view",
     image: aToZMovingImage,
+    cta: "See the Case Study",
   },
   {
     company: "Capstone Project",
@@ -52,6 +53,8 @@ const projects = [
     ],
     link: "https://github.com/dirghayu101/index-shell/tree/experiment",
     image: indexShell,
+    cta: "Checkout the Repo",
+
   },
   {
     company: "Cybernetics Association",
@@ -73,6 +76,7 @@ const projects = [
     ],
     link: "https://github.com/dirghayu101/cypher-event",
     image: cypher,
+    cta: "Checkout the Repo",
   },
 ];
 

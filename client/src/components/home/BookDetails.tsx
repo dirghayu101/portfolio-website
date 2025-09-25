@@ -16,10 +16,10 @@ export const BookDetails = () => {
       </div>
       {/* Currently Reading */}
       <section className="px-6 md:px-10 mb-10">
-        <h4 className="font-serif text-2xl mb-4 text-center">
+        <h4 className="font-serif text-2xl mb-4 py-4 text-center">
           Currently Reading
         </h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
           {BOOK_DETAILS.currentlyReading.map((book, idx) => (
             <div
               key={idx}
@@ -41,10 +41,10 @@ export const BookDetails = () => {
 
       {/* Earlier Read This Year */}
       <section className="px-6 md:px-10 mb-12">
-        <h4 className="font-serif text-2xl mb-4 text-center">
-          Earlier Read This Year
+        <h4 className="font-serif text-2xl mb-4 pb-4 text-center">
+          Earlier Read
         </h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 justify-items-center">
+        <div className="grid grid-cols-2  md:grid-cols-4 gap-6 justify-items-center">
           {BOOK_DETAILS.earlierReads.map((book, idx) => (
             <div
               key={idx}

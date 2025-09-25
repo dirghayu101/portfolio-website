@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["covers.openlibrary.org"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "covers.openlibrary.org",
+        port: "",
+        pathname: "/b/id/**",
+      },
+    ],
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports

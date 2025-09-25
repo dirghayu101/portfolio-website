@@ -12,21 +12,21 @@ const testimonials = [
     avatar: avatarJoshua,
   },
   {
-    name: "Jayden (Huy) Nguyen",
-    position: "Software Developer @ Public & Business Services & Procurement",
-    text: "Working with Joshi was both fun and productive. He brings strong technical expertise and pairs it with a problem-solving mindset that keeps the team moving forward. I appreciated how he balanced writing clean, efficient code with clear communication. His collaborative nature made him someone I could always count on during challenging tasks.",
-    avatar: avatarJayden,
-  },
-  {
     name: "Tushar Mishra",
     position: "Software Developer @ DigiKagaz",
     text: "I worked with Joshi on our final year project, where we developed a website for a co-working space using the PERN stack. His expertise in backend development, particularly with Node.js and PostgreSQL made him the go-to person for any backend issues we faced during our project. He handled some of the trickiest parts of the backend of our website exceptionally. He is very good at explaining technical details to others. I highly recommend Joshi for any role that requires strong technical and problem solving skills.",
     avatar: avatarTushar,
   },
   {
+    name: "Jayden (Huy) Nguyen",
+    position: "Software Developer @ Public & Business Services & Procurement",
+    text: "Working with Joshi was both fun and productive. He brings strong technical expertise and pairs it with a problem-solving mindset that keeps the team moving forward. I appreciated how he balanced writing clean, efficient code with clear communication. His collaborative nature made him someone I could always count on during challenging tasks.",
+    avatar: avatarJayden,
+  },
+  {
     name: "Jimmy Budny",
     position: "Operations Manager @ Merlin Entertainments",
-    text: "I presently have the privilege of managing Joshi at the Legoland Discovery Centre Toronto. Joshi is a highly motivated individual who is a self-starter and works well in a team atmosphere. He shows a high level of professionalism and dedication to his role, which is very refreshing to see. Joshi displays advanced communication skills on a daily basis and a tremendous amount of drive. He has a bright future ahead of him and I look forward to seeing the wonderful things he will accomplish in his career!",
+    text: "I presently have the privilege of managing Joshi at the Legoland Discovery Centre, Toronto. Joshi is a highly motivated individual who is a self-starter and works well in a team atmosphere. He shows a high level of professionalism and dedication to his role, which is very refreshing to see. Joshi displays advanced communication skills on a daily basis and a tremendous amount of drive. He has a bright future ahead of him and I look forward to seeing the wonderful things he will accomplish in his career!",
     avatar: avatarJimmy,
   },
   {
@@ -41,7 +41,7 @@ const testimonials = [
 export const TESTIMONIALS = {
   sectionHeader: {
     eyebrow: "My Collaborators",
-    title: "What My Team Says",
+    title: "People Who Have Worked With Me Say",
     description: "Don't just take my word for it. See what my collaborators have to say about my work."
   },
   testimonials: testimonials
