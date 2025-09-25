@@ -10,7 +10,7 @@ export const ArticleSectionContainer = ({
   return (
     <div
       className={twMerge(
-        `container pt-20 flex flex-col items-center`,
+        `container md:pt-20 pt-10 flex flex-col items-center`,
         className
       )}
     >

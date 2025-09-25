@@ -17,19 +17,19 @@ export const ArticleListDescriptive = ({
       {posts.map((post) => (
         <div key={post.slug} className="p-6 ">
           <Link href={`/articles/${post.category}/${post.slug}`}>
-            <h3 className="text-lg font-light mb-2 hover:font-semibold">{post.title}</h3>
+            <h3 className="md:text-lg text-base font-light mb-2 hover:font-semibold">{post.title}</h3>
           </Link>
-          <p className="text-base mb-4 font-normal">{post.summary}</p>
-          
-          <div className="flex flex-row justify-between items-center">
+          <p className="md:text-base text-sm mb-4 font-normal text-white/60">{post.summary}</p>
+
+          <div className="flex md:flex-row flex-col md:justify-between  md:items-center items-start justify-start md:gap-0 gap-2">
             <Link
               href={`/articles/${post.category}/${post.slug}`}
-              className="flex items-center  text-base font-light hover:font-semibold"
+              className="flex items-center  md:text-base text-sm font-light hover:font-semibold"
             >
               Read More <ArrowUpRight className="ml-2 size-4" />
             </Link>
             {post.date && (
-              <p className="text-sm font-light">
+              <p className="md:text-base text-sm font-light ">
                 {post.date}
               </p>
             )}

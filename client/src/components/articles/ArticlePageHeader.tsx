@@ -3,7 +3,7 @@ import { ArticleSectionContainer } from "./ArticleSectionContainer";
 export const ArticlePageHeader = ({heading, description}: {heading: string; description?: string}) => {
   return (
       <ArticleSectionContainer className="pt-0">
-      <h1 className="font-serif text-4xl md:text-6xl text-center mt-6 capitalize">
+      <h1 className="font-serif text-4xl md:text-6xl text-center capitalize">
         {heading}
       </h1>
       {description && (

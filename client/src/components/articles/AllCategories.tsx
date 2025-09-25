@@ -31,12 +31,12 @@ export const AllCategories = ({ allPosts }: { allPosts: any[] }) => {
   );
   return (
     <ArticleSectionContainer>
-      <ArticleSectionHeader heading="Articles by Topics" />
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <ArticleSectionHeader heading="Articles by Topics" className="md:pb-10 pb-4"/>
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-y-4 gap-y-2">
         {Array.from(grouped.entries()).map(([category, posts]) => {
           return (
             <div key={category} className="p-4 h-full">
-              <h3 className="text-base font-light mb-6 uppercase">
+              <h3 className="text-base font-light mb-2 uppercase">
                 <Link
                   href={`/articles/${category}`}
                   className="transition-transform duration-300 ease-in-out hover:scale-110 hover:font-semibold"
