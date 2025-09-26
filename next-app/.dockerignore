@@ -1,0 +1,23 @@
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build output
+.next
+dist
+build
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git
+.gitignore
+
+# Editor files
+.vscode
+.idea
+*.swp

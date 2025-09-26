@@ -1,0 +1,25 @@
+-- Connect to the database created by POSTGRES_DB
+\connect ${POSTGRES_DB};
+
+-- Create a schema for Prisma
+CREATE SCHEMA ${PRISMA_SCHEMA};
+
+-- Create a Prisma user
+CREATE USER ${PRISMA_USER} WITH ENCRYPTED PASSWORD '${PRISMA_PASSWORD}';
+
+-- Allow connection to the database
+GRANT CONNECT ON DATABASE ${POSTGRES_DB} TO ${PRISMA_USER};
+
+-- Allow schema usage + object creation
+GRANT USAGE, CREATE ON SCHEMA ${PRISMA_SCHEMA} TO ${PRISMA_USER};
+
+-- Grant all privileges on current tables/sequences
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${PRISMA_SCHEMA} TO ${PRISMA_USER};
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA ${PRISMA_SCHEMA} TO ${PRISMA_USER};
+
+-- Ensure new tables/sequences created in this schema also give rights to Prisma
+ALTER DEFAULT PRIVILEGES IN SCHEMA ${PRISMA_SCHEMA}
+  GRANT ALL ON TABLES TO ${PRISMA_USER};
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA ${PRISMA_SCHEMA}
+  GRANT ALL ON SEQUENCES TO ${PRISMA_USER};

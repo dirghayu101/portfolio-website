@@ -1,0 +1,20 @@
+import { db } from "@/db";
+
+// POST request for the contact form submission.
+export async function POST(request: Request) {
+  const { name, email, message } = await request.json();
+  try {
+    await db.contactMessage.create({
+      data: {
+        name,
+        email,
+        message,
+      },
+    });
+  } catch (error) {
+    console.error("Error saving contact message", error);
+    return new Response("Failed to save contact message", { status: 500 });
+  }
+
+  return new Response("Contact message saved successfully", { status: 200 });
+}

@@ -1,0 +1,41 @@
+name: portfolio
+
+services:
+  portfolio-db:
+    build:
+      context: ./deploy-config/db
+    container_name: portfolio-db
+    env_file: /usr/local/sbin/portfolio_env/db.env
+    volumes:
+      - portfolio-db-data:/var/lib/postgresql/data
+    networks:
+      - portfolio
+    restart: unless-stopped
+
+  portfolio-frontend:
+    build:
+      context: ./next-app
+    networks:
+      - portfolio
+    depends_on:
+      - portfolio-db
+    restart: unless-stopped
+
+  portfolio-nginx:
+    build: 
+      context: ./deploy-config/nginx
+    ports:
+      - "80:80"
+    networks:
+      - portfolio
+    depends_on:
+      - portfolio-frontend
+    restart: unless-stopped
+
+networks:
+  portfolio:
+    driver: bridge
+    name: portfolio-network
+    
+volumes:
+  portfolio-db-data:
