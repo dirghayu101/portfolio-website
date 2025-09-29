@@ -27,7 +27,6 @@ jobs:
             git pull origin main
             
             echo "Step 3: Running deployment script"
-            cd ~/portfolio-guided
             sudo /usr/local/sbin/deploy-portfolio.sh
             DEPLOY_EXIT_CODE=$?
 
