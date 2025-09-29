@@ -20,14 +20,12 @@ RUN npm run build
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
-
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-
+RUN apk add --no-cache openssl
 # Prisma specific
-# RUN apk add --no-cache openssl3 
 # RUN npx prisma generate
-
+COPY prisma ./prisma/
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
@@ -40,4 +38,4 @@ EXPOSE 2337
 # Switch to user nextjs
 USER nextjs
 ENV PORT=${PORT:-2337}
-CMD [ "node", "server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]

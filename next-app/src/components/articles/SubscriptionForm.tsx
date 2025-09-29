@@ -1,5 +1,6 @@
 "use client";
 import { useFormState } from "react-dom";
+import { useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { createSubscriber } from "@/lib/server-actions/actions";
 import SubmitButton from "@/components/ui/SubmitButton";
@@ -10,6 +11,13 @@ import { DEFAULT_SUBSCRIPTION_PITCH } from "@/static/articles/articles-component
 export const SubscriptionForm = ({heading, description} : {heading?: string; description?: string}) => {
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(createSubscriber, initialState);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!state?.errors?.email && state?.message && emailInputRef.current) {
+      emailInputRef.current.value = '';
+    }
+  }, [state]);
   return (
     <ArticleSectionContainer>
       <ArticleSectionHeader heading={heading || DEFAULT_SUBSCRIPTION_PITCH.heading} />
@@ -22,6 +30,7 @@ export const SubscriptionForm = ({heading, description} : {heading?: string; des
 
         {/* Input */}
         <Input
+          ref={emailInputRef}
           type="email"
           name="email"
           id="email"
@@ -34,6 +43,7 @@ export const SubscriptionForm = ({heading, description} : {heading?: string; des
 
         {/* Button */}
         <SubmitButton className="w-full bg-emerald-600 text-white font-medium rounded-md px-4 py-2 transition-colors duration-200 hover:bg-emerald-700 focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500" />
+
         <div
                 id="email-error"
                 aria-label="polite"

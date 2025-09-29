@@ -19,7 +19,6 @@ export async function GET() {
 // POST request to update the view count of an article.
 export async function POST(request: Request) {
   const { slug, title, category } = await request.json();
-
   try {
     const existingPost = await db.articles.findUnique({
       where: { slug: slug },
@@ -30,6 +29,8 @@ export async function POST(request: Request) {
         where: { slug: slug },
         data: {
           view_count: { increment: 1 },
+          title: title,
+          category: category,
         },
       });
     } else {

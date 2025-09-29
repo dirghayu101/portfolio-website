@@ -1,13 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -16,18 +9,18 @@ datasource db {
 }
 
 model Articles {
-  id          Int       @id @default(autoincrement())
-  slug        String    @unique
-  title       String
-  category    String
-  view_count  Int       @default(1)
-  updatedAt   DateTime  @default(now())    
+  id         Int      @id @default(autoincrement())
+  slug       String   @unique
+  title      String
+  category   String
+  view_count Int      @default(1)
+  updatedAt  DateTime @default(now())
 }
 
 model Subscriber {
-  id              Int     @id @default(autoincrement())
-  email           String  @unique
-  is_subscribed   Boolean @default(true)
+  id            Int     @id @default(autoincrement())
+  email         String  @unique
+  is_subscribed Boolean @default(true)
 }
 
 model ContactMessage {

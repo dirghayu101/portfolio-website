@@ -8,8 +8,6 @@ import { ArticleSectionContainer } from "./ArticleSectionContainer";
 import { ArticleListDescriptive } from "./ArticleListDescriptive";
 
 export const PopularPosts = ({ allPosts, header }: { allPosts: any[], header?: string }) => {
-  console.log("Fetch URL value in popular posts: ",fetchUrl)
-  console.log("Base URL value in popular posts: ",baseUrl)
   const blogUrl = `${fetchUrl}/blog`;
   const { data, error, isLoading } = useSWR(blogUrl, fetcher);
 
@@ -20,7 +18,7 @@ export const PopularPosts = ({ allPosts, header }: { allPosts: any[], header?: s
     .filter((post) =>
       data?.some(
         (p: { title: string; slug: string; category: string }) =>
-          p.slug === post.slug && p.category === post.metadata.category
+          p.slug === post.slug
       )
     )
     .map((post) => ({

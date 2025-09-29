@@ -3,6 +3,12 @@ import { db } from "@/db";
 // POST request for the contact form submission.
 export async function POST(request: Request) {
   const { name, email, message } = await request.json();
+  if (!name || !email || !message) {
+    return new Response("Missing required fields", { status: 400 });
+  }
+  if(!email.includes("@")){
+    return new Response("Invalid email address", { status: 400 });
+  }
   try {
     await db.contactMessage.create({
       data: {
