@@ -1,0 +1,40 @@
+name: Deploy to Production Server
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy code
+        uses: appleboy/ssh-action@0e19dd962da42eb2f2b775d6e133dc9dfd424aa6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            set -e  
+            
+            echo "Step 1: Navigating to project directory"
+            cd ~/portfolio-guided
+            
+            echo "Step 2: Pulling latest changes"
+            git pull origin main
+            
+            echo "Step 3: Running deployment script"
+            cd ~/portfolio-guided
+            sudo /usr/local/sbin/deploy-portfolio.sh
+            DEPLOY_EXIT_CODE=$?
+
+            if [ $DEPLOY_EXIT_CODE -eq 0 ]; then
+              echo "Deployment completed successfully"
+            else
+              echo "Deployment failed with exit code $DEPLOY_EXIT_CODE"
+              exit $DEPLOY_EXIT_CODE
+            fi
+            
