@@ -20,6 +20,8 @@ services:
     depends_on:
       - portfolio-db
     restart: unless-stopped
+    ports:
+      - "5555:5555"
 
   portfolio-nginx:
     build: 
