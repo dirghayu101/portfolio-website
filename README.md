@@ -2,6 +2,12 @@
 
 A full-stack portfolio and technical blog platform built with Next.js 14, featuring a containerized architecture with PostgreSQL database and Nginx reverse proxy. Perfect for developers who want to showcase their work and share technical articles.
 
+## 📸 Portfolio Preview
+
+| Home Page | Projects Section | Blog Section |
+|-----------|------------------|--------------|
+| ![Portfolio Home Page](pictures/portfolio-pic-1.png) | ![Portfolio Projects Section](pictures/portfolio-pic-2.png) | ![Portfolio Blog Section](pictures/portfolio-pic-3.png) |
+
 ![Portfolio Platform](https://img.shields.io/badge/Platform-Portfolio-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
