@@ -17,19 +17,7 @@ export const EXPERIENCES: Experience = {
   sectionTitle: "My Experiences",
   sectionDescription: "My journey so far in the tech field.",
   experienceBody: [
-    {
-      title: "University Degree",
-      job: "Bachelor's in Computer Science",
-      date: "2020-2023",
-      contents: [
-        "Graduated First Class with Distinction (CGPA: 8/10).",
-        "Studied and applied programming languages including C, C++, Java, and Python to solve coursework and project challenges.",
-        "Built a strong foundation in algorithms, data structures, computer networks, and operating systems through academic projects and research.",
-        "Developed web apps, managed databases, and applied software engineering practices in course projects.",
-        "Worked on team assignments, improving collaboration, problem-solving, and communication skills.",
-      ],
-    },
-    {
+     {
       title: "Full Stack Developer",
       job: "Renuka Softtech Pvt. Ltd.",
       date: "2023-2024",
@@ -40,7 +28,7 @@ export const EXPERIENCES: Experience = {
         "Implemented responsive and accessible design practices, ensuring seamless usage across devices and browsers.",
       ],
     },
-    {
+     {
       title: "Post-Graduation",
       job: "Specialization in Cloud Architecture, Administration and Database Applications",
       date: "2024-2025",
@@ -50,6 +38,18 @@ export const EXPERIENCES: Experience = {
         "Achieved AWS Developer - Associate certification, proving ability to design, develop, and maintain applications on AWS.",
         "Applied tools such as Docker, Kubernetes, Hadoop, Spark, SQL, and NoSQL databases to hands-on labs and projects.",
         "Explored cloud security, scalability, and cost optimization, producing solutions that balanced performance and efficiency.",
+      ],
+    },
+    {
+      title: "University Degree",
+      job: "Bachelor's in Computer Science",
+      date: "2020-2023",
+      contents: [
+        "Graduated First Class with Distinction (CGPA: 8/10).",
+        "Studied and applied programming languages including C, C++, Java, and Python to solve coursework and project challenges.",
+        "Built a strong foundation in algorithms, data structures, computer networks, and operating systems through academic projects and research.",
+        "Developed web apps, managed databases, and applied software engineering practices in course projects.",
+        "Worked on team assignments, improving collaboration, problem-solving, and communication skills.",
       ],
     },
   ],
