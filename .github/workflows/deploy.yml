@@ -3,7 +3,8 @@ name: Deploy to Production Server
 on:
   push:
     branches:
-      - main  
+      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
