@@ -1,8 +1,27 @@
 import aToZMovingImage from "@/assets/images/aToZMoving.png";
-import indexShell from "@/assets/images/indexShell.png";
+import webBuilder from "@/assets/images/webBuilder.png";
 import cypher from "@/assets/images/cypher.png";
 
 const projects = [
+  {
+    company: "Personal Project",
+    year: "2025",
+    title: "AI-Powered Web Builder Platform",
+    results: [
+      {
+        title:
+          "Architected a multi-agent AI system using OpenAI GPT-4 and Google Gemini, enabling conversational website generation with 95% production-ready code accuracy.",
+      },
+      {
+        title:
+          "Implemented real-time sandboxed environments with E2B Code Interpreter, allowing instant preview and execution of generated Next.js applications.",
+      },
+    ],
+    link: "https://web-builder-gray-one.vercel.app/",
+    image: webBuilder,
+    cta: "Try for yourself",
+
+  },
   {
     company: "A-Z Moving",
     year: "2025",
@@ -18,43 +37,12 @@ const projects = [
       },
       {
         title:
-          "Implemented role-based access and compliance features, strengthening data security.",
-      },
-      {
-        title:
           "Enhanced reporting dashboards, enabling faster and more informed decision-making.",
       },
     ],
     link: "https://drive.google.com/file/d/1oMBIHKIvWaGN31YHJi6r3EiSEgBiD71s/view",
     image: aToZMovingImage,
-    cta: "See the Case Study",
-  },
-  {
-    company: "Capstone Project",
-    year: "2024",
-    title: "Index Shell",
-    results: [
-      {
-        title:
-          "Developed a web tool to index and search shell commands, simplifying DevOps workflows.",
-      },
-      {
-        title:
-          "Improved search and tagging features, reducing time spent locating commands.",
-      },
-      {
-        title:
-          "Automated command execution, streamlining repetitive tasks for developers.",
-      },
-      {
-        title:
-          "Integrated AWS Lambda, Cognito, API Gateway, and DynamoDB for a secure, scalable backend.",
-      },
-    ],
-    link: "https://github.com/dirghayu101/index-shell/tree/experiment",
-    image: indexShell,
-    cta: "Checkout the Repo",
-
+    cta: "Case Study",
   },
   {
     company: "Cybernetics Association",
@@ -76,7 +64,7 @@ const projects = [
     ],
     link: "https://github.com/dirghayu101/cypher-event",
     image: cypher,
-    cta: "Checkout the Repo",
+    cta: "Source Repository",
   },
 ];
 
