@@ -22,10 +22,10 @@ export const EXPERIENCES: Experience = {
       job: "Renuka Softtech Pvt. Ltd.",
       date: "2023-2024",
       contents: [
-        "Developed and maintained full-stack web applications using React, Node.js, Express, and MongoDB, delivering features to production on schedule.",
-        "Partnered with cross-functional teams to design and roll out new functionality, directly improving user experience and customer satisfaction.",
-        "Optimized performance by refactoring code and improving database queries, reducing page load times by 30%.",
-        "Implemented responsive and accessible design practices, ensuring seamless usage across devices and browsers.",
+        "Migrated an on-premise ERP to a cloud-native SaaS model on AWS , boosting uptime to 99.9% and cutting infrastructure costs by 25%.",
+        "Containerized the ERP backend with Docker and deployed it on AWS Kubernetes (EKS) , enabling autoscaling to eliminate bottlenecks and manual server maintenance.",
+        "Migrated the on-premise MySQL database to a high-availability AWS RDS instance , reducing query response times by 40% through performance optimization.",
+        "Established a full CI/CD pipeline with AWS CodePipeline and secured the infrastructure using AWS WAF, VPCs, and IAM , leading to automated and secure deployments.",
       ],
     },
      {

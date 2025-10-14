@@ -28,6 +28,21 @@ currentlyReading: [
 
 earlierReads : [
   {
+    title: "Maybe You Should Talk to Someone",
+    author: "Lori Gottlieb",
+    cover: "https://covers.openlibrary.org/b/id/10239205-L.jpg"
+  },
+  {
+    title: "Wanting: The Power of Mimetic Desire in Everyday Life",
+    author: "Luke Burgis",
+    cover: "https://covers.openlibrary.org/b/id/10580856-L.jpg"
+  },
+  {
+    title: "Atomic Habits",
+    author: "James Clear",
+    cover: "https://covers.openlibrary.org/b/id/15113993-L.jpg"
+  },
+  {
     title: "The Denial of Death",
     author: "Ernest Becker",
     cover: "https://covers.openlibrary.org/b/id/6485496-L.jpg"
