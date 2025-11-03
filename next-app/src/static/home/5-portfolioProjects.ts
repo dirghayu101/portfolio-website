@@ -1,6 +1,7 @@
 import aToZMovingImage from "@/assets/images/aToZMoving.png";
 import webBuilder from "@/assets/images/webBuilder.png";
 import cypher from "@/assets/images/cypher.png";
+import lyra from "@/assets/images/lyra.png"
 
 const projects = [
   {
@@ -21,6 +22,28 @@ const projects = [
     image: webBuilder,
     cta: "Try for yourself",
 
+  },
+  {
+    company: "Personal Project",
+    year: "2025",
+    title: "Lyra",
+    results: [
+      {
+        title:
+          "Developed real-time video infrastructure with Stream.io, enabling 1080p recording, live chat, and multi-user meetings with lobby and active-call management.",
+      },
+      {
+        title:
+          "Built an AI pipeline using GPT-4o and Inngest for automated transcription, speaker detection, and secure summary generation.",
+      },
+      {
+        title:
+          "Integrated Polar.sh subscription system for premium tiers, usage tracking, and access control for meetings and AI agents.",
+      },
+    ],
+    link: "https://lyra-seven-virid.vercel.app/sign-in",
+    image: lyra,
+    cta: "Try for yourself",
   },
   {
     company: "A-Z Moving",
@@ -44,28 +67,6 @@ const projects = [
     image: aToZMovingImage,
     cta: "Case Study",
   },
-  {
-    company: "Cybernetics Association",
-    year: "2023",
-    title: "Cypher",
-    results: [
-      {
-        title:
-          "Created a competition platform for 100+ participants, achieving a 100% satisfaction rate.",
-      },
-      {
-        title:
-          "Deployed on Google Cloud Platform, ensuring scalability during live events.",
-      },
-      {
-        title:
-          "Enabled real-time interaction using Socket.io and Firebase with Express, and secured access with Google OAuth.",
-      },
-    ],
-    link: "https://github.com/dirghayu101/cypher-event",
-    image: cypher,
-    cta: "Source Repository",
-  },
 ];
 
 
@@ -85,9 +86,9 @@ const keywords = [
 
 export const PORTFOLIO_PROJECTS = {
   sectionHeader: {
-    eyebrow:"Real-world Results",
-    title:"Featured Projects",
-    description:"See how I transformed concepts into engaging digital experiences."
+    eyebrow: "Real-world Results",
+    title: "Featured Projects",
+    description: "See how I transformed concepts into engaging digital experiences."
   },
   projects: projects,
   keywords: keywords
