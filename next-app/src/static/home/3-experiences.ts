@@ -20,7 +20,7 @@ export const EXPERIENCES: Experience = {
      {
       title: "Full Stack Developer",
       job: "Renuka Softtech Pvt. Ltd.",
-      date: "2023-2024",
+      date: "2022-2023",
       contents: [
         "Migrated an on-premise ERP to a cloud-native SaaS model on AWS , boosting uptime to 99.9% and cutting infrastructure costs by 25%.",
         "Containerized the ERP backend with Docker and deployed it on AWS Kubernetes (EKS) , enabling autoscaling to eliminate bottlenecks and manual server maintenance.",
