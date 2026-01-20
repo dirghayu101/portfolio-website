@@ -23,7 +23,13 @@ Sub goal 1: Upgrade next to version 16.
         Error Message: Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
         Fix: Changed postcss.config.mjs file. Then changed the imports in global.css according to the tailwind version 4 specifications.
 
-        Problem
+        Problem 4: Next 16 doesn't support svg out of the box as stated by GPT. I am installing svgr now.
+        Fix: svgr installation and followed documentation specification.
+
+    Final Verdict: Task 1 accomplished, but there are more issues.
+        1. SVGs are not working as expected. Might need to change them entirely.
+        2. Tailwind classes didn't get applied as expected. Likely there is more configuration to be done than suggested by GPT.
+
    
 
 
