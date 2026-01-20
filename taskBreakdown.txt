@@ -1,0 +1,32 @@
+Goal: Upgrade all dependencies to a recent stable version.
+
+Sub goal 1: Upgrade next to version 16.
+
+    Task 1: Changed the package.json, install newer packages and run locally in dev.
+        
+        Problem 1: npx prisma generate causing problem.
+        Temporary Solution: Comment out prisma generate. 
+            Why: Will take care of it, when start working with DB in conjunction, will have to setup entire thing locally and overcomplicate stuff.
+
+        Problem 2: I am using webpack to handle svg in my next version 14. In version 16 turbopack is the default one so my svg config is redundant.
+        Solution 1: Add flag to use webpack. 
+            Cons: In future, webpack will be completely redundant so this might be useless.
+        Solution 2: Install another package for handling svg.
+            Cons: Another dependency.
+        Solution 3: Next v16 handles SVG out of the box.
+            Cons: Might cause something unexpected.
+        Final Verdict: Will go with solution 3, if there will be any issues with svg, will install "next-svgr" package for handline svg (Solution 2).
+
+        Status here: It is running, but homepage is giving error because of tailwind configuration.
+
+        Problem 3: Tailwind configuration error. 
+        Error Message: Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+        Fix: Changed postcss.config.mjs file. Then changed the imports in global.css according to the tailwind version 4 specifications.
+
+        Problem
+   
+
+
+
+## Reminders
+- Put prisma generate back.

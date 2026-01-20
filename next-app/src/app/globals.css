@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
+@reference "tailwindcss";
+
 @tailwind utilities;
+@import "tailwindcss/preflight";
 @import 'prism-themes/themes/prism-vsc-dark-plus.css';
 
 @layer base {
