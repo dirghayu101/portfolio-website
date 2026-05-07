@@ -20,7 +20,7 @@ export const EXPERIENCES: Experience = {
      {
       title: "Software Engineer",
       job: "Merit Services",
-      date: "2026-_",
+      date: "2026 - current",
       contents: [
         "Modernized and streamlined the company’s WordPress-based IT infrastructure, while planning migration to a scalable React and Next.js web platform.",
         "Developed and deployed a cross-platform café ordering mobile application for iOS and Android using React Native and TypeScript.",
@@ -32,7 +32,7 @@ export const EXPERIENCES: Experience = {
      {
       title: "Post-Graduation",
       job: "Specialization in Cloud Architecture, Administration and Database Applications",
-      date: "2024-2025",
+      date: "2024 - 2025",
       contents: [
         "Graduated First Class with Distinction (CGPA: 4.0/4.0) and earned a place on the President's Honor List for all four semesters.",
         "Completed advanced coursework in cloud computing, covering architecture, administration, and database systems.",
@@ -44,7 +44,7 @@ export const EXPERIENCES: Experience = {
     {
       title: "University Degree",
       job: "Bachelor's in Computer Science",
-      date: "2020-2023",
+      date: "2020 - 2023",
       contents: [
         "Graduated First Class with Distinction (CGPA: 8/10).",
         "Studied and applied programming languages including C, C++, Java, and Python to solve coursework and project challenges.",
