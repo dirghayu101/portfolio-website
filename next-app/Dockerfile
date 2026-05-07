@@ -38,4 +38,4 @@ EXPOSE 2337
 # Switch to user nextjs
 USER nextjs
 ENV PORT=${PORT:-2337}
-CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
+CMD ["sh", "-c", "npx prisma@6 migrate deploy && node server.js"]

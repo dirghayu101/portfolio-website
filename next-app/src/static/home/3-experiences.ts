@@ -18,14 +18,15 @@ export const EXPERIENCES: Experience = {
   sectionDescription: "My journey so far in the tech field.",
   experienceBody: [
      {
-      title: "Full Stack Developer",
-      job: "Renuka Softtech Pvt. Ltd.",
-      date: "2022-2023",
+      title: "Software Engineer",
+      job: "Merit Services",
+      date: "2026-_",
       contents: [
-        "Migrated an on-premise ERP to a cloud-native SaaS model on AWS , boosting uptime to 99.9% and cutting infrastructure costs by 25%.",
-        "Containerized the ERP backend with Docker and deployed it on AWS Kubernetes (EKS) , enabling autoscaling to eliminate bottlenecks and manual server maintenance.",
-        "Migrated the on-premise MySQL database to a high-availability AWS RDS instance , reducing query response times by 40% through performance optimization.",
-        "Established a full CI/CD pipeline with AWS CodePipeline and secured the infrastructure using AWS WAF, VPCs, and IAM , leading to automated and secure deployments.",
+        "Modernized and streamlined the company’s WordPress-based IT infrastructure, while planning migration to a scalable React and Next.js web platform.",
+        "Developed and deployed a cross-platform café ordering mobile application for iOS and Android using React Native and TypeScript.",
+        "Designed and developed an administrative dashboard using Next.js and Supabase to support business operations and mobile app management.",
+        "Enhanced CI/CD and development workflows using GitHub Actions with automated testing and deployment pipelines",
+        "Created automation scripts for database provisioning, environment setup, Docker builds, and other repetitive development tasks, improving developer productivity and onboarding efficiency.",
       ],
     },
      {
