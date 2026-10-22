@@ -15,8 +15,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { category: string } }) {
-  let { category } = params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  let { category } = await params;
   if (category === "cs-fundamentals") {
     category = "CS Fundamentals";
   } else {
@@ -29,10 +33,15 @@ export function generateMetadata({ params }: { params: { category: string } }) {
   };
 }
 
-export default function Home({ params }: { params: { category: string } }) {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
   const allPosts = getArticlesMetadata();
 
-  let category = params.category;
+  const { category: categorySlug } = await params;
+  let category = categorySlug;
   if (category === "cs-fundamentals") {
     category = "CS Fundamentals";
   } else {
@@ -40,7 +49,7 @@ export default function Home({ params }: { params: { category: string } }) {
   }
 
   let posts = allPosts
-    .filter((post) => post.metadata.category === params.category)
+    .filter((post) => post.metadata.category === categorySlug)
     .sort(
       (a, b) =>
         new Date(b.metadata.publishedAt).getTime() -

@@ -1,5 +1,5 @@
 # Use official Nginx image
-FROM nginx:1.27-alpine-slim
+FROM nginx:1.30-alpine-slim
 
 # Set working directory
 WORKDIR /etc/nginx
